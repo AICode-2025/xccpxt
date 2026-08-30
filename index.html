@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="星辰测评 - 免费心理自评工具，无需登录注册，测完即出结果">
+<meta name="theme-color" content="#4f46e5">
+<title>星辰测评 · 免费心理自评</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/theme.js"></script>
+</head>
+<body>
+<div class="app">
+
+  <!-- Hero（参考 traits.zqbapp.cn） -->
+  <section class="hero">
+    <span class="hero__glow"></span>
+    <span class="hero__glow hero__glow--two"></span>
+    <h1 class="hero__brand">星辰测评<span>心理测评与自评工具</span></h1>
+    <p class="hero__sub">免费 · 免登录 · 10 款热门测评，测完即出结果</p>
+    <a class="hero__cta" href="#tests">开始测评</a>
+  </section>
+
+  <!-- 锚点导航 -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a class="nav__link active" href="#tests">全部测评</a>
+      <a class="nav__link" href="#screen">心理筛查</a>
+      <a class="nav__link" href="#history">我的记录</a>
+      <a class="nav__link" href="types.html">图库</a>
+      <a class="nav__link" href="match.html">配对</a>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- 历史记录 -->
+    <section id="history" class="section">
+      <h2 class="section__title">我的记录</h2>
+      <div id="historySection" class="history hidden">
+        <div class="history-list" id="historyList"></div>
+        <p style="margin-top:10px;text-align:center;">
+          <button id="clearHistory" class="btn-ghost" type="button" style="display:inline-block;width:auto;padding:6px 20px;font-size:13px;">清空记录</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- 自我探索 -->
+    <section id="tests" class="section">
+      <h2 class="section__title">热门测评</h2>
+      <p class="section__sub">认识自己，从 5 分钟开始</p>
+      <div class="group">
+        <h3 class="group__title">自我探索</h3>
+        <div id="list-explore" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- 心理筛查 -->
+    <section id="screen" class="section">
+      <div class="group">
+        <h3 class="group__title">心理筛查</h3>
+        <p class="section__sub" style="text-align:left;margin-bottom:12px;">自评参考工具，结果不构成医学诊断</p>
+        <div id="list-screen" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- 小工具 -->
+    <section id="tools" class="section">
+      <div class="group">
+        <h3 class="group__title">小工具</h3>
+        <div class="grid">
+          <a class="scale-item" href="types.html">
+            <div class="scale-icon">🔎</div>
+            <div class="scale-name">十六型图库</div>
+            <div class="scale-desc">浏览全部 16 种类型，查看类型解读</div>
+          </a>
+          <a class="scale-item" href="match.html">
+            <div class="scale-icon">💞</div>
+            <div class="scale-name">配对矩阵</div>
+            <div class="scale-desc">测你俩的十六型匹配度</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>本站所有测试免费且匿名，答题数据仅保存在你的设备本地，不会上传。</p>
+    <p>测评结果仅供自我探索与参考，不构成任何医学诊断。</p>
+  </footer>
+</div>
+
+<script src="js/engine.js"></script>
+<script src="data/type16.js"></script>
+<script src="data/bigfive.js"></script>
+<script src="data/attachment.js"></script>
+<script src="data/gses.js"></script>
+<script src="data/psss.js"></script>
+<script src="data/sas.js"></script>
+<script src="data/phq9.js"></script>
+<script src="data/gad7.js"></script>
+<script src="data/pss10.js"></script>
+<script src="data/hcl32.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

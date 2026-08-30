@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<title>配对矩阵 · 星辰测评</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/theme.js"></script>
+</head>
+<body class="quiz-page">
+<div class="app">
+
+  <header class="quiz-head">
+    <a class="back-btn" href="index.html" aria-label="返回首页">‹</a>
+    <div class="quiz-head-info">
+      <h1>配对矩阵</h1>
+      <p>看看你和 TA 的十六型匹配度</p>
+    </div>
+  </header>
+
+  <!-- 选择区 -->
+  <section class="card">
+    <label class="picker-label" for="pickA">你的类型</label>
+    <select id="pickA" class="picker"></select>
+    <div class="picker-vs">配</div>
+    <label class="picker-label" for="pickB">TA 的类型</label>
+    <select id="pickB" class="picker"></select>
+    <div class="btn-col" style="margin-top:14px;">
+      <button id="computeBtn" class="btn-primary" type="button">看看匹配度</button>
+    </div>
+  </section>
+
+  <!-- 结果 -->
+  <section id="matchResult" class="hidden">
+    <div class="poster-card">
+      <p class="poster-brand">配 对 矩 阵</p>
+      <div class="match-pair" id="mPair"></div>
+      <div class="poster-level" id="mScore"></div>
+      <p class="poster-score" id="mBand"></p>
+      <p class="poster-footnote" id="mNote"></p>
+    </div>
+
+    <section class="card detail-card">
+      <h4 style="margin:0 0 10px;">你们合拍的地方</h4>
+      <ul id="mSame"></ul>
+      <h4 style="margin:18px 0 10px;">你们差异的地方</h4>
+      <ul id="mDiff"></ul>
+    </section>
+
+    <div class="btn-row">
+      <button id="savePoster" class="btn-primary" type="button">保存匹配图</button>
+    </div>
+
+    <section class="disclaimer" id="mDisclaimer">本匹配基于荣格类型理论的自研娱乐算法，仅供娱乐与自我探索，不构成任何关系建议。</section>
+  </section>
+
+  <footer class="footer" style="margin-top:28px;">
+    <p>仅供娱乐与自我探索，不代表专业评估</p>
+  </footer>
+</div>
+
+<canvas id="posterCanvas" width="750" height="1000" class="hidden"></canvas>
+
+<script src="js/engine.js"></script>
+<script src="js/pair.js"></script>
+<script src="data/type16.js"></script>
+<script src="js/match.js"></script>
+</body>
+</html>

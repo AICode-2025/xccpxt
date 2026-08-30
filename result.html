@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#5b6abf">
+<title>结果 · 星辰测评</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/theme.js"></script>
+</head>
+<body class="result-page">
+<div class="app">
+
+  <header class="result-head">
+    <a class="back-btn" href="index.html" aria-label="返回首页">‹</a>
+    <h1 id="scaleTitle">结果</h1>
+  </header>
+
+  <!-- 结果卡（用于生成海报的内容快照） -->
+  <section id="posterCard" class="poster-card">
+    <p class="poster-brand">星辰测评</p>
+    <h2 id="posterScaleName"></h2>
+    <div id="posterLevel" class="poster-level"></div>
+    <p id="posterScoreLine" class="poster-score"></p>
+    <div id="posterBars" class="poster-bars"></div>
+    <p id="posterFootnote" class="poster-footnote"></p>
+  </section>
+
+  <div class="btn-row">
+    <button id="downloadPoster" class="btn-primary" type="button">保存结果图片</button>
+  </div>
+
+  <!-- 详细解读 -->
+  <section class="card detail-card">
+    <h3 id="resultLevel"></h3>
+    <p id="resultScore"></p>
+    <div id="subscaleList"></div>
+    <p id="resultDescription"></p>
+    <div id="suggestionBlock">
+      <h4 id="suggestionTitle">建议</h4>
+      <ul id="suggestionList"></ul>
+    </div>
+  </section>
+
+  <!-- 筛查类：转介提示（触发时才显示） -->
+  <section id="referralBox" class="referral hidden">
+    <h4>请注意</h4>
+    <p id="referralText"></p>
+    <p class="referral-hotline">全国统一心理援助热线：<strong>12356</strong>（24 小时）</p>
+  </section>
+
+  <!-- 免责声明（按量表等级切换话术） -->
+  <section id="disclaimerBox" class="disclaimer"></section>
+
+  <div class="btn-col">
+    <a id="retakeLink" class="btn-ghost" href="#">再测一次</a>
+    <a class="btn-ghost" href="index.html">看看其他测评</a>
+  </div>
+</div>
+
+<canvas id="posterCanvas" width="750" height="1000" class="hidden"></canvas>
+
+<script src="js/engine.js"></script>
+<script src="data/type16.js"></script>
+<script src="data/bigfive.js"></script>
+<script src="data/attachment.js"></script>
+<script src="data/gses.js"></script>
+<script src="data/psss.js"></script>
+<script src="data/sas.js"></script>
+<script src="data/phq9.js"></script>
+<script src="data/gad7.js"></script>
+<script src="data/pss10.js"></script>
+<script src="data/hcl32.js"></script>
+<script src="js/result.js"></script>
+</body>
+</html>

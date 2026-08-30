@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<title>十六型人格图库 · 星辰测评</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/theme.js"></script>
+</head>
+<body class="quiz-page">
+<div class="app">
+
+  <header class="quiz-head">
+    <a class="back-btn" href="index.html" aria-label="返回首页">‹</a>
+    <div class="quiz-head-info">
+      <h1>十六型人格图库</h1>
+      <p>浏览全部 16 种类型，看看你和你身边人</p>
+    </div>
+  </header>
+
+  <!-- 16 型卡片网格 -->
+  <div id="typeGrid" class="grid" style="margin-top:14px;"></div>
+
+  <!-- 详情面板 -->
+  <section id="typeDetail" class="card hidden">
+    <h3 id="tName"></h3>
+    <p id="tTagline" style="margin-top:4px;color:var(--text-light);font-size:14px;"></p>
+    <p id="tDesc" style="margin-top:12px;line-height:1.8;font-size:14px;"></p>
+    <div id="tTraits" class="scale-tags" style="justify-content:flex-start;margin-top:12px;"></div>
+    <div class="type-block"><h4>优势</h4><ul id="tStrengths"></ul></div>
+    <div class="type-block"><h4>小提醒</h4><ul id="tWatchouts"></ul></div>
+    <div class="type-block"><h4>可能适合的方向</h4><ul id="tFits"></ul></div>
+    <div class="btn-col">
+      <a id="tTakeTest" class="btn-primary" href="quiz.html?scale=type16">测一测你是不是这个类型</a>
+    </div>
+  </section>
+
+  <footer class="footer" style="margin-top:28px;">
+    <p>仅供娱乐与自我探索，不代表专业评估</p>
+  </footer>
+</div>
+
+<script src="js/engine.js"></script>
+<script src="data/type16.js"></script>
+<script src="js/types.js"></script>
+</body>
+</html>

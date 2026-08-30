@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#5b6abf">
+<title>答题中 · 星辰测评</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/theme.js"></script>
+</head>
+<body class="quiz-page">
+<div class="app">
+
+  <header class="quiz-head">
+    <a id="quitLink" class="back-btn" href="index.html" aria-label="返回首页">‹</a>
+    <div class="quiz-head-info">
+      <h1 id="scaleTitle">加载中…</h1>
+      <p id="scaleMeta"></p>
+    </div>
+  </header>
+
+  <!-- 进度条 -->
+  <div class="progress-wrap" aria-hidden="true">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+  <p id="progressText" class="progress-text"></p>
+
+  <!-- 未开始的引导卡（有存档时显示继续/重来） -->
+  <section id="resumeCard" class="card hidden">
+    <p id="resumeText"></p>
+    <div class="btn-col">
+      <button id="resumeBtn" class="btn-primary" type="button">继续上次的作答</button>
+      <button id="restartBtn" class="btn-ghost" type="button">重新开始</button>
+    </div>
+  </section>
+
+  <!-- 答题区 -->
+  <main id="quizArea" class="hidden">
+    <section class="card question-card">
+      <p id="qIndex" class="q-index"></p>
+      <h2 id="qText" class="q-text"></h2>
+      <p id="qSubtext" class="q-subtext hidden"></p>
+      <div id="options" class="options"></div>
+    </section>
+
+    <div class="quiz-nav">
+      <button id="prevBtn" class="btn-ghost" type="button">上一题</button>
+    </div>
+
+    <!-- 量表说明（答题前展示一次） -->
+    <p id="instruction" class="instruction"></p>
+  </main>
+
+</div>
+
+<script src="js/engine.js"></script>
+<script src="data/type16.js"></script>
+<script src="data/bigfive.js"></script>
+<script src="data/attachment.js"></script>
+<script src="data/gses.js"></script>
+<script src="data/psss.js"></script>
+<script src="data/sas.js"></script>
+<script src="data/phq9.js"></script>
+<script src="data/gad7.js"></script>
+<script src="data/pss10.js"></script>
+<script src="data/hcl32.js"></script>
+<script src="js/quiz.js"></script>
+</body>
+</html>
