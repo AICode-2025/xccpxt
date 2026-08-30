@@ -18,7 +18,7 @@
   function scaleCard(s) {
     var tagText = s.category === 'screen' ? '心理筛查' : '自我探索';
     var tagClass = s.category === 'screen' ? 'tag screen' : 'tag';
-    return '<a class="scale-item" href="quiz.html?scale=' + esc(s.id) + '">' +
+    return '<a class="scale-item" href="intro.html?scale=' + esc(s.id) + '">' +
       '<div class="scale-icon">' + esc(s.icon || '🧩') + '</div>' +
       '<div class="scale-name">' + esc(s.title) + '</div>' +
       '<div class="scale-desc">' + esc(s.desc) + '</div>' +

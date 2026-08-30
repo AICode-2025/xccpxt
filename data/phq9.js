@@ -6,6 +6,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.phq9 = {
   id: 'phq9',
   icon: '🌧️',
+  intro: '国际通用的抑郁自评筛查工具，评估最近两周的情绪状态。结果包含严重程度分级与应对建议；如存在自伤念头，请认真对待并寻求帮助。',
+  source: 'PHQ-9（Spitzer 等 1999）· 国际通用筛查工具',
   title: '抑郁自评筛查（PHQ-9）',
   short: '抑郁筛查',
   category: 'screen',

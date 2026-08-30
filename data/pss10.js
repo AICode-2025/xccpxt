@@ -5,6 +5,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.pss10 = {
   id: 'pss10',
   icon: '⚡',
+  intro: '测一测最近一个月，生活让你感到"绷不住"的程度。结果包含压力水平分档与减压建议。',
+  source: 'PSS-10（Cohen 等 1983）· 经典压力自评',
   title: '压力知觉量表',
   short: '压力自评',
   category: 'screen',

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<title>测评说明 · 星辰测评</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/theme.js"></script>
+</head>
+<body class="quiz-page">
+<div class="app">
+
+  <header class="quiz-head">
+    <a id="quitLink" class="back-btn" href="index.html" aria-label="返回首页">‹</a>
+    <div class="quiz-head-info">
+      <h1>测评说明</h1>
+      <p>先了解一下，再开始作答</p>
+    </div>
+  </header>
+
+  <!-- 量表信息卡 -->
+  <section class="intro-card">
+    <div id="introIcon" class="scale-icon"></div>
+    <h2 id="introTitle"></h2>
+    <div id="introMeta" class="intro-meta"></div>
+  </section>
+
+  <section class="card intro-body">
+    <h4>关于本测试</h4>
+    <p id="introDesc"></p>
+    <h4>作答说明</h4>
+    <p id="introInstruction"></p>
+    <h4>测完你会得到</h4>
+    <p id="introResult"></p>
+    <p id="introSource" class="dim-note" style="margin-top:16px;"></p>
+  </section>
+
+  <!-- 免责声明（按量表等级） -->
+  <section id="introDisclaimer" class="disclaimer"></section>
+
+  <div class="btn-col">
+    <button id="startBtn" class="btn-primary" type="button">开始测试</button>
+    <a id="gobackLink" class="btn-ghost" href="index.html">再看看其他测评</a>
+  </div>
+
+</div>
+
+<script src="js/engine.js"></script>
+<script src="data/type16.js"></script>
+<script src="data/bigfive.js"></script>
+<script src="data/attachment.js"></script>
+<script src="data/gses.js"></script>
+<script src="data/psss.js"></script>
+<script src="data/sas.js"></script>
+<script src="data/phq9.js"></script>
+<script src="data/gad7.js"></script>
+<script src="data/pss10.js"></script>
+<script src="data/hcl32.js"></script>
+<script src="js/intro.js"></script>
+</body>
+</html>

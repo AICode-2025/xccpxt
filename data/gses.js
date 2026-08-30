@@ -5,6 +5,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.gses = {
   id: 'gses',
   icon: '💪',
+  intro: '测一测你面对困难时，有多相信自己能搞定。自我效能感影响你愿不愿意开始、能不能坚持。结果包含效能水平分档与提升建议。',
+  source: 'Schwarzer & Jerusalem（1979）· 作者允许教育与自我探索免费使用',
   title: '一般自我效能感量表',
   short: '自我效能',
   category: 'explore',

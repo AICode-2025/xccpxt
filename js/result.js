@@ -42,7 +42,7 @@
 
     document.title = scale.title + ' 结果 · 星辰测评';
     $id('scaleTitle').textContent = scale.title;
-    $id('retakeLink').href = 'quiz.html?scale=' + encodeURIComponent(scale.id);
+    $id('retakeLink').href = 'intro.html?scale=' + encodeURIComponent(scale.id);
 
     if (r.typeMode) { renderTypeResult(scale, r); renderTypePoster(scale, r); }
     else if (r.dimsMode) { renderDimsResult(scale, r); renderDimsPoster(scale, r); }

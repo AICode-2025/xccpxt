@@ -10,10 +10,9 @@
 ```
 site/
 ├── index.html          # 首页：量表列表 + 小工具入口 + 历史记录
+├── intro.html          # 测试介绍页（?scale=量表id：说明/作答指引/来源/免责）
 ├── quiz.html           # 答题页（?scale=量表id）
 ├── result.html         # 结果页（?scale=量表id&a=作答串，链接可直接分享）
-├── types.html          # 十六型图库（浏览 16 型，?type=INTJ 直达）
-├── match.html          # 配对矩阵（?a=INTJ&b=ENFP 预填）
 ├── css/style.css       # 全站样式（移动端优先）
 ├── js/
 │   ├── engine.js       # 引擎：注册表/计分/反向/维度/判级/转介

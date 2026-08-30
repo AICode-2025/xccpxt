@@ -6,6 +6,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.gad7 = {
   id: 'gad7',
   icon: '😟',
+  intro: '国际通用的焦虑自评筛查工具，评估最近两周的焦虑困扰程度。结果包含严重程度分级与应对建议。',
+  source: 'GAD-7（Spitzer 等 2006）· 国际通用筛查工具',
   title: '焦虑自评筛查（GAD-7）',
   short: '焦虑筛查',
   category: 'screen',

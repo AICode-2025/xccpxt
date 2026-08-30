@@ -20,6 +20,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.bigfive = {
   id: 'bigfive',
   icon: '🌊',
+  intro: '心理学界公认的人格框架，从五个维度描述你：外倾性、宜人性、尽责性、神经质、开放性。结果包含五维剖面图、每维度的档位解读，以及跨维度组合提示。',
+  source: 'International Personality Item Pool（IPIP-NEO-60）· 公有领域',
   title: '大五人格测试',
   short: '大五人格',
   category: 'explore',
