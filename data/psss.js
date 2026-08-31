@@ -6,6 +6,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.psss = {
   id: 'psss',
   icon: '🤝',
+  color: '#22c55e',
+  hook: '谁在真正托住你？',
   intro: '看看你身边的支持网络：家人、朋友、其他人，谁在给你托底。结果包含总支持水平与三个维度的分别得分（家庭 / 朋友 / 其他）。',
   source: 'Zimet 等（1988）· 研究常用',
   title: '领悟社会支持量表',

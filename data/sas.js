@@ -6,6 +6,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.sas = {
   id: 'sas',
   icon: '😰',
+  color: '#eab308',
+  hook: '你的焦虑程度，到底有多高？',
   intro: '国际通用的焦虑自评工具，评估你最近一周的焦虑水平。结果包含标准分与四个档位（正常 / 轻度 / 中度 / 重度）的解读与建议。',
   source: 'Zung（1971）· 经典自评量表',
   title: '焦虑自评量表',

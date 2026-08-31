@@ -19,6 +19,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.attachment = {
   id: 'attachment',
   icon: '💞',
+  color: '#ec4899',
+  hook: '你在恋爱里，是哪种姿态？',
   intro: '你在亲密关系里是哪种姿态？本测试从「依恋焦虑」和「依恋回避」两个维度，把你的模式归入安全型 / 焦虑型 / 回避型 / 恐惧型之一，并给出坐标位置与建议。',
   source: '基于依恋理论的自研题项 · 原创',
   title: '恋爱依恋类型测试',

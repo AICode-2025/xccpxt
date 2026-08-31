@@ -15,13 +15,15 @@
       .replace(/"/g, '&quot;');
   }
 
-  function scaleCard(s) {
+  function scaleCard(s, i) {
     var tagText = s.category === 'screen' ? '心理筛查' : '自我探索';
     var tagClass = s.category === 'screen' ? 'tag screen' : 'tag';
-    return '<a class="scale-item" href="intro.html?scale=' + esc(s.id) + '">' +
+    var c = s.color || '#4f46e5';
+    return '<a class="scale-item" href="intro.html?scale=' + esc(s.id) + '" ' +
+        'style="--c:' + c + ';animation-delay:' + (i * 45) + 'ms">' +
       '<div class="scale-icon">' + esc(s.icon || '🧩') + '</div>' +
       '<div class="scale-name">' + esc(s.title) + '</div>' +
-      '<div class="scale-desc">' + esc(s.desc) + '</div>' +
+      '<div class="scale-desc">' + esc(s.hook || s.desc) + '</div>' +
       '<div class="scale-tags">' +
         '<span class="' + tagClass + '">' + tagText + '</span>' +
         '<span class="tag">' + s.questions.length + ' 题 · 约 ' + s.timeMinutes + ' 分钟</span>' +
@@ -37,9 +39,9 @@
       (s.category === 'screen' ? screen : explore).push(s);
     });
     document.getElementById('list-explore').innerHTML =
-      explore.map(scaleCard).join('') || '<p class="section__sub">暂无</p>';
+      explore.map(function (s, i) { return scaleCard(s, i); }).join('') || '<p class="section__sub">暂无</p>';
     document.getElementById('list-screen').innerHTML =
-      screen.map(scaleCard).join('') || '<p class="section__sub">暂无</p>';
+      screen.map(function (s, i) { return scaleCard(s, i + explore.length); }).join('') || '<p class="section__sub">暂无</p>';
   }
 
   function renderHistory() {

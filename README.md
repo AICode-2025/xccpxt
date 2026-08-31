@@ -2,15 +2,20 @@
 
 纯 HTML + CSS + 原生 JavaScript 的量表测评站。**零依赖、零构建、零后端**：双击 `index.html` 就能跑，也可以直接把整个文件夹丢到任意静态托管（Cloudflare Pages / EdgeOne Pages / Vercel / 宝塔随便哪个）。
 
-**UI 参考**：traits.zqbapp.cn（Traits 特质应用，中青报系）——深靛蓝渐变 Hero + 光晕 + 白色胶囊 CTA、
-吸顶锚点导航、左侧竖条分组标题、圆形图标卡片两列网格。设计令牌见 `css/style.css` 的 `:root`。
+**UI 参考**：traits.zqbapp.cn（Traits 特质应用，中青报系）——专题页形态：深色渐变 Hero + 光晕 +
+旋转虚线圆环 + 真实主图标 + 参数条 + 白色胶囊 CTA，下方依次为信任条 / 测什么 / 测完得到什么 / 怎么测 /
+免责声明 / 底部 CTA / 相关推荐。移动优先自适应（手机单列、≥860px 双列、≥1100px 五列）。
+
+> ⚠️ `assets/mbti-icon.png` 与 `assets/hero-bg.jpg` 取自参考站 traits.zqbapp.cn（仅测试研究用途），
+> 正式上线前请替换为自有素材，避免版权风险。
 
 ## 目录结构
 
 ```
 site/
 ├── index.html          # 首页：量表列表 + 小工具入口 + 历史记录
-├── intro.html          # 测试介绍页（?scale=量表id：说明/作答指引/来源/免责）
+├── intro.html          # 测试专题页（?scale=量表id：Hero/信任条/测什么/测后收获/怎么测/免责/底部CTA/相关推荐）
+├── assets/              # 专题页图片素材（十六型 Hero 图）
 ├── quiz.html           # 答题页（?scale=量表id）
 ├── result.html         # 结果页（?scale=量表id&a=作答串，链接可直接分享）
 ├── css/style.css       # 全站样式（移动端优先）

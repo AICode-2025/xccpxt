@@ -7,6 +7,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.hcl32 = {
   id: 'hcl32',
   icon: '🎢',
+  color: '#ef4444',
+  hook: '那些"状态特别好"的日子，是信号吗？',
   intro: '筛查双相倾向的通用工具：那些"精力特别旺盛、状态特别好"的日子，也是一种信号。结果给出阳性/阴性提示；如阳性建议做专业评估。',
   source: 'HCL-32（Angst 等）· 论文注明免费供临床与研究使用',
   title: '心情分析清单（HCL-32）',

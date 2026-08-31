@@ -30,6 +30,8 @@ window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.type16 = {
   id: 'type16',
   icon: '🧭',
+  color: '#4f46e5',
+  hook: '你是哪种人格？32 题测出你的十六型',
   intro: '测出你在荣格四维（外向/内向 · 实感/直觉 · 思考/情感 · 计划/随性）上的偏好，组合成 16 种人格类型之一。结果包含：类型代码、专属中文昵称、人格画像、优势与提醒、可能适合的方向。',
   source: 'Open Extended Jungian Type Scales 1.2（OEJTS）· Open Psychometrics · 开源免费',
   title: '十六型人格测试',

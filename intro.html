@@ -4,45 +4,79 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#4f46e5">
-<title>测评说明 · 星辰测评</title>
+<title>测评 · 星辰测评</title>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/theme.js"></script>
 </head>
-<body class="quiz-page">
+<body class="intro-page">
 <div class="app">
 
-  <header class="quiz-head">
-    <a id="quitLink" class="back-btn" href="index.html" aria-label="返回首页">‹</a>
-    <div class="quiz-head-info">
-      <h1>测评说明</h1>
-      <p>先了解一下，再开始作答</p>
+  <!-- ================= Hero 区 ================= -->
+  <header class="lp-hero" id="lpHero">
+    <div class="lp-hero__bg" id="heroBg"></div>
+    <div class="lp-hero__glow lp-hero__glow--a"></div>
+    <div class="lp-hero__glow lp-hero__glow--b"></div>
+    <div class="lp-hero__ring" aria-hidden="true"></div>
+    <div class="lp-hero__ring lp-hero__ring--two" aria-hidden="true"></div>
+
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <div class="lp-hero__tags" id="heroTags"></div>
+        <h1 class="lp-hero__title" id="heroTitle"></h1>
+        <p class="lp-hero__hook" id="heroHook"></p>
+        <div class="lp-hero__stats" id="heroStats"></div>
+        <button class="lp-hero__cta" id="startBtn" type="button">开始测试</button>
+        <p class="lp-hero__hint" id="heroHint"></p>
+      </div>
+      <div class="lp-hero__visual" id="heroVisual"></div>
     </div>
   </header>
 
-  <!-- 量表信息卡 -->
-  <section class="intro-card">
-    <div id="introIcon" class="scale-icon"></div>
-    <h2 id="introTitle"></h2>
-    <div id="introMeta" class="intro-meta"></div>
-  </section>
-
-  <section class="card intro-body">
-    <h4>关于本测试</h4>
-    <p id="introDesc"></p>
-    <h4>作答说明</h4>
-    <p id="introInstruction"></p>
-    <h4>测完你会得到</h4>
-    <p id="introResult"></p>
-    <p id="introSource" class="dim-note" style="margin-top:16px;"></p>
-  </section>
-
-  <!-- 免责声明（按量表等级） -->
-  <section id="introDisclaimer" class="disclaimer"></section>
-
-  <div class="btn-col">
-    <button id="startBtn" class="btn-primary" type="button">开始测试</button>
-    <a id="gobackLink" class="btn-ghost" href="index.html">再看看其他测评</a>
+  <!-- ================= 信任条 ================= -->
+  <div class="lp-trust">
+    <div class="lp-trust__item">✅ 官方公开题源</div>
+    <div class="lp-trust__item">🔒 免费 · 免登录</div>
+    <div class="lp-trust__item">🖼️ 结果可存海报</div>
+    <div class="lp-trust__item">⚡ 全程不收集作答数据</div>
   </div>
+
+  <!-- ================= 测什么 ================= -->
+  <section class="lp-section">
+    <h2 class="lp-section__title">测什么<span class="lp-section__sub" id="whatSub"></span></h2>
+    <div id="whatBlock" class="lp-what"></div>
+  </section>
+
+  <!-- ================= 测完得到什么 ================= -->
+  <section class="lp-section">
+    <h2 class="lp-section__title">测完你会得到<span class="lp-section__sub">一份能看懂、能分享的结果</span></h2>
+    <div id="gainBlock" class="lp-gain"></div>
+  </section>
+
+  <!-- ================= 怎么测 ================= -->
+  <section class="lp-section lp-section--narrow">
+    <h2 class="lp-section__title">怎么测<span class="lp-section__sub">三分钟上手</span></h2>
+    <div class="lp-steps" id="stepsBlock"></div>
+    <div class="lp-instruction card" id="instructionBlock"></div>
+  </section>
+
+  <!-- ================= 免责声明 ================= -->
+  <section id="introDisclaimer" class="lp-disclaimer"></section>
+
+  <!-- ================= 底部 CTA ================= -->
+  <section class="lp-bottom-cta" id="bottomCta">
+    <p class="lp-bottom-cta__title" id="ctaTitle"></p>
+    <button class="btn-primary lp-bottom-cta__btn" id="startBtn2" type="button">开始测试</button>
+  </section>
+
+  <!-- ================= 相关推荐 ================= -->
+  <section class="lp-section">
+    <h2 class="lp-section__title">你可能还想测<span class="lp-section__sub">探索更多自己</span></h2>
+    <div id="recBlock" class="lp-rec"></div>
+  </section>
+
+  <footer class="footer">
+    <p>星辰测评 · 免费匿名测评 · 仅供自我探索与参考</p>
+  </footer>
 
 </div>
 
