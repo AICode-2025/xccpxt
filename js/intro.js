@@ -45,8 +45,6 @@
     }
     $id('heroStats').innerHTML = stats.join('');
 
-    $id('heroHint').textContent = '免费 · 免登录 · 结果可存海报';
-
     /* 视觉：十六型用官方图，其余用专属色 emoji 大图标 */
     var visual = $id('heroVisual');
     if (scale.id === 'type16') {
@@ -64,6 +62,7 @@
     var box = $id('whatBlock');
     var sub = $id('whatSub');
     var html = [];
+    $id('whatIntro').textContent = scale.intro || scale.desc || '';
 
     if (scale.poleMode) {
       sub.textContent = '四个维度，16 种组合';
@@ -130,8 +129,6 @@
             '</div>'
           );
         });
-      } else {
-        html.push('<div class="lp-what__text">' + esc(scale.intro || scale.desc || '') + '</div>');
       }
     }
 
@@ -149,23 +146,26 @@
       cards.push(['🏷️', '中文昵称', '每个类型配一个社交货币昵称，方便发朋友圈']);
       cards.push(['📊', '四维剖面', '外向/内向、实感/直觉……每维倾向清晰可见']);
       cards.push(['🧠', '类型解读', '画像、优势、小提醒、适合方向一页讲透']);
-      cards.push(['🖼️', '分享海报', '一键生成海报图，长按保存即发']);
     } else if (scale.dimsMode) {
       cards.push(['📊', '五维剖面', '外倾/宜人/尽责/敏感/开放，五条剖面线']);
       cards.push(['🏷️', '档位解读', '每个维度高中低档位，对应一段人话解读']);
       cards.push(['⭐', '最突出维度', '一眼看到你性格里最鲜明的部分']);
       cards.push(['💡', '组合提示', '维度组合揭示行为模式，如"执行力型"']);
-      cards.push(['🖼️', '分享海报', '一键生成海报图，长按保存即发']);
     } else if (scale.quadrantMode) {
       cards.push(['🏷️', '类型标签', '安全型 / 焦虑型 / 回避型 / 恐惧型']);
       cards.push(['📈', '两维坐标', '焦虑与回避的连续坐标，拒绝贴标签式粗暴结论']);
       cards.push(['💬', '相处建议', '针对你的模式给出可操作的相处提示']);
-      cards.push(['🖼️', '分享海报', '一键生成海报图，长按保存即发']);
+      cards.push(['🔁', '双向视角', '依恋是双向的，也看看对方可能站在哪个位置']);
+    } else if (scale.countMode) {
+      cards.push(['🔤', '你的类型', '从若干候选类型中，算出得分最高的那一个']);
+      cards.push(['🥧', '占比分布', '每个类型各占多少，看清主型与次要倾向']);
+      cards.push(['📖', '类型详解', '核心特质、优势、短板一次讲清楚']);
+      cards.push(['💡', '行动提示', '针对你的类型给出能直接用的建议']);
     } else {
       cards.push(['📊', '总分与等级', '你的得分对应一个清晰的等级区间']);
       cards.push(['🧩', '分维度解读', '各维度分别说明，不只看一个总分']);
       cards.push(['💡', '个性化建议', '基于结果给出可操作的日常建议']);
-      cards.push(['🖼️', '分享海报', '一键生成海报图，长按保存即发']);
+      cards.push(['📌', '结果边界', '说清这份结果能说明什么、不能说明什么']);
     }
 
     box.innerHTML = cards.map(function (cd) {
@@ -177,12 +177,60 @@
     }).join('');
   }
 
-  /* ---------- 怎么测 ---------- */
+  /* ---------- 量表类型分组（决定场景/FAQ 文案模板） ---------- */
+  function scaleKind(scale) {
+    if (scale.poleMode || scale.dimsMode) { return 'personality'; }
+    if (scale.quadrantMode) { return 'love'; }
+    if (scale.category === 'screen') { return 'screen'; }
+    return 'self';
+  }
+
+  /* ---------- 使用场景 ---------- */
+  function renderScenario(scale) {
+    var kind = scaleKind(scale);
+    var sets = {
+      personality: [
+        ['🎯', '求职与定位', '认识自己的性格优势，面试与职业选择更笃定'],
+        ['💬', '人际与沟通', '理解自己和他人的相处模式，减少误会'],
+        ['🧭', '自我认知', '性格画像清晰化，知道自己在什么环境里最舒服'],
+        ['🤝', '团队协作', '了解自己在团队中的角色，配合更顺畅']
+      ],
+      love: [
+        ['❤️', '亲密关系', '看清自己在关系里的模式，减少反复的摩擦'],
+        ['🧭', '自我觉察', '了解焦虑与回避倾向的来源，更接纳自己'],
+        ['💬', '恋爱沟通', '理解对方的回应方式，沟通更对味'],
+        ['🌱', '关系成长', '依恋模式可以改变，为更健康的关系做准备']
+      ],
+      screen: [
+        ['🧭', '状态了解', '把近期的感受量化，心里有数'],
+        ['🩺', '就医准备', '就诊前自测梳理症状，与医生沟通更高效'],
+        ['📈', '状态跟踪', '间隔一段时间重测，看趋势变化'],
+        ['🌱', '自我照顾', '结果提醒你该关注哪些方面']
+      ],
+      self: [
+        ['🎯', '自我激励', '看清自己的状态水平，知道从哪发力'],
+        ['🤝', '支持网络', '盘点身边能托住你的人'],
+        ['🌱', '成长规划', '把优势用在生活里，设定更合理的目标'],
+        ['🧭', '自我觉察', '更了解自己，也更懂怎么照顾自己']
+      ]
+    };
+    var cards = sets[kind] || sets.self;
+    $id('tab-scenario').innerHTML = '<div class="lp-scenario">' + cards.map(function (c) {
+      return '<div class="lp-scenario__card">' +
+        '<span class="lp-scenario__icon">' + c[0] + '</span>' +
+        '<b>' + c[1] + '</b>' +
+        '<p>' + c[2] + '</p>' +
+      '</div>';
+    }).join('') + '</div>';
+  }
+
+  /* ---------- 如何使用 ---------- */
   function renderSteps(scale) {
     var steps = [
-      ['1', '凭第一直觉作答', '不用想太久，直觉最接近真实的你'],
-      ['2', '约 ' + scale.timeMinutes + ' 分钟完成', '中途退出可继续上次作答'],
-      ['3', '结果即时生成', '可保存海报，也可分享链接给朋友']
+      ['1', '凭第一直觉作答', '直觉最接近真实的你'],
+      ['2', '完成全部题目', '约 ' + scale.timeMinutes + ' 分钟，中途退出可继续'],
+      ['3', '查看结果解读', '总分 / 维度 / 类型，一页讲透'],
+      ['4', '分享给朋友', '复制链接，对方打开即见结果']
     ];
     $id('stepsBlock').innerHTML = steps.map(function (s) {
       return '<div class="lp-step">' +
@@ -193,11 +241,38 @@
     }).join('');
 
     if (scale.instruction) {
-      $id('instructionBlock').innerHTML =
+      $id('tab-instruction').innerHTML =
         '<h4>作答说明</h4><p>' + esc(scale.instruction) + '</p>';
     } else {
-      $id('instructionBlock').classList.add('hidden');
+      $id('tab-instruction').classList.add('hidden');
     }
+  }
+
+  /* ---------- 常见问题 ---------- */
+  function renderFaq(scale) {
+    var kind = scaleKind(scale);
+    var accuracy = {
+      personality: '题库基于经典心理学量表（OEJTS / IPIP 等公开版本），但结果反映的是你当下的自我认知，仅供自我探索与参考。',
+      love: '维度框架来自依恋理论的学术共识，题项为原创编写。结果反映你的关系模式倾向，仅供自我探索，不构成关系诊断。',
+      screen: '这是国际通用的标准化自评筛查工具，信效度有研究支持。但它不能替代医生的专业诊断，结果异常请及时就医。',
+      self: '基于经典公开量表改编，反映你近期的自我评价，供自我了解参考。'
+    };
+    var faqs = [
+      ['这个测试准吗？', accuracy[kind]],
+      ['需要注册或登录吗？', '不需要。全站免费、匿名，即开即测。'],
+      ['我的数据安全吗？', '作答只保存在你的设备本地，不会上传任何服务器，清除浏览器数据即完全消失。'],
+      ['结果能保存或分享吗？', '结果页链接自带你的作答参数，复制发给朋友，对方打开就能看到你的结果，无需登录。'],
+      ['为什么结果和我以为的不一样？', '测验反映的是你实际的选择模式，而不是你希望成为的样子。凭第一直觉作答时最接近真实。']
+    ];
+    if (kind === 'screen') {
+      faqs.push(['结果提示异常怎么办？', '量表高分不代表确诊，请勿自行定性。若持续感到不适，建议前往正规医院精神心理科就诊，或拨打全国心理援助热线 12356。']);
+    }
+    $id('tab-faq').innerHTML = faqs.map(function (f) {
+      return '<details class="lp-faq__item">' +
+        '<summary>' + esc(f[0]) + '</summary>' +
+        '<p>' + esc(f[1]) + '</p>' +
+      '</details>';
+    }).join('');
   }
 
   /* ---------- 免责声明 ---------- */
@@ -229,26 +304,96 @@
     }).join('');
   }
 
-  function init() {
-    var id = new URLSearchParams(window.location.search).get('scale');
-    var scale = id ? E.getScale(id) : null;
-    if (!scale) { window.location.href = 'index.html'; return; }
+  /* ---------- TAB 切换 ---------- */
+  function bindTabs() {
+    var nav = document.querySelector('.lp-tabs__nav');
+    if (!nav) { return; }
+    nav.addEventListener('click', function (e) {
+      var btn = e.target.closest('.lp-tabs__tab');
+      if (!btn) { return; }
+      var key = btn.getAttribute('data-tab');
+      nav.querySelectorAll('.lp-tabs__tab').forEach(function (b) {
+        b.classList.toggle('active', b === btn);
+      });
+      document.querySelectorAll('.lp-tabs__pane').forEach(function (p) {
+        p.classList.toggle('active', p.id === 'tab-' + key);
+      });
+    });
+  }
 
+  /* ---------- 版本选择（双版本量表） ---------- */
+  var state = { base: null, active: null, verId: null };
+
+  function renderVersionSelector() {
+    var vs = E.versionList(state.base);
+    var sec = $id('versionSection');
+    if (!vs.length) { sec.classList.add('hidden'); return; }
+    sec.classList.remove('hidden');
+    var c = esc(state.base.color || '#4f46e5');
+    $id('versionSub').textContent = vs.length + ' 个版本 · 全部免费';
+    $id('versionBlock').innerHTML = vs.map(function (v) {
+      var active = v.id === state.verId;
+      return '<button class="lp-version' + (active ? ' active' : '') + '" data-v="' + esc(v.id) + '" type="button" style="--c:' + c + '">' +
+        '<b>' + esc(v.label) + '</b>' +
+        '<span>' + v.count + ' 题 · 约 ' + v.timeMinutes + ' 分钟</span>' +
+        '<i>' + (v.id === 'quick' ? '快速出结果 · 适合分享' : '报告更全面 · 了解更深') + '</i>' +
+      '</button>';
+    }).join('');
+    var block = $id('versionBlock');
+    block.querySelectorAll('.lp-version').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        applyVersion(btn.getAttribute('data-v'));
+      });
+    });
+  }
+
+  function applyVersion(verId) {
+    var r = E.resolveVersion(state.base, verId);
+    state.active = r.scale;
+    state.verId = r.versionId;
+    render(state.active);
+    renderVersionSelector();
+  }
+
+  function go() {
+    var url = 'quiz.html?scale=' + encodeURIComponent(state.base.id);
+    if (state.verId) { url += '&v=' + encodeURIComponent(state.verId); }
+    window.location.href = url;
+  }
+
+  function init() {
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get('scale');
+    var base = id ? E.getScale(id) : null;
+    if (!base) { window.location.href = 'index.html'; return; }
+
+    state.base = base;
+    var resolved = E.resolveVersion(base, params.get('v'));
+    state.active = resolved.scale;
+    state.verId = resolved.versionId;
+
+    render(state.active);
+    renderVersionSelector();
+    bindTabs();
+
+    $id('startBtn').addEventListener('click', go);
+    $id('startBtn2').addEventListener('click', go);
+    $id('startBtn3').addEventListener('click', go);
+  }
+
+  function render(scale) {
     renderHero(scale);
     renderWhat(scale);
     renderGain(scale);
+    renderScenario(scale);
     renderSteps(scale);
+    renderFaq(scale);
     renderDisclaimer(scale);
     renderRecs(scale.id);
 
     $id('ctaTitle').textContent = '认识' + scale.title + '，现在就开始';
     $id('startBtn2').textContent = '开始测试 · ' + scale.questions.length + ' 题';
-
-    function go() {
-      window.location.href = 'quiz.html?scale=' + encodeURIComponent(scale.id);
-    }
-    $id('startBtn').addEventListener('click', go);
-    $id('startBtn2').addEventListener('click', go);
+    $id('startBtn3').textContent = '开始测试 · ' + scale.questions.length + ' 题';
   }
 
   init();

@@ -15,6 +15,15 @@
       .replace(/"/g, '&quot;');
   }
 
+  /** 取量表默认展示题数（有双版本时取速测版题数） */
+  function qCount(s) {
+    if (s.versions) {
+      var k = Object.keys(s.versions)[0];
+      return (s.versions[k].questions || []).length;
+    }
+    return (s.questions || []).length;
+  }
+
   function scaleCard(s, i) {
     var tagText = s.category === 'screen' ? '心理筛查' : '自我探索';
     var tagClass = s.category === 'screen' ? 'tag screen' : 'tag';
@@ -26,7 +35,7 @@
       '<div class="scale-desc">' + esc(s.hook || s.desc) + '</div>' +
       '<div class="scale-tags">' +
         '<span class="' + tagClass + '">' + tagText + '</span>' +
-        '<span class="tag">' + s.questions.length + ' 题 · 约 ' + s.timeMinutes + ' 分钟</span>' +
+        '<span class="tag">' + qCount(s) + ' 题 · 约 ' + s.timeMinutes + ' 分钟</span>' +
       '</div>' +
     '</a>';
   }
@@ -53,8 +62,9 @@
     list.innerHTML = hist.slice(0, 8).map(function (h) {
       var s = E.getScale(h.scaleId);
       var name = s ? s.title : h.scaleId;
-      return '<a class="history-item" href="result.html?scale=' + esc(h.scaleId) + '&a=' + esc(h.answers) + '">' +
-        '<span>' + esc(name) + '</span>' +
+      var ver = h.ver ? '&v=' + encodeURIComponent(h.ver) : '';
+      return '<a class="history-item" href="result.html?scale=' + esc(h.scaleId) + ver + '&a=' + esc(h.answers) + '">' +
+        '<span>' + esc(name) + (h.verLabel ? '<i class="h-ver">' + esc(h.verLabel) + '</i>' : '') + '</span>' +
         '<span class="h-level">' + esc(h.level) +
           ' <span class="h-date">' + esc(h.date) + '</span></span>' +
       '</a>';

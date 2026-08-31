@@ -23,10 +23,10 @@ site/
 │   ├── engine.js       # 引擎：注册表/计分/反向/维度/判级/转介
 │   ├── home.js         # 首页逻辑
 │   ├── quiz.js         # 答题逻辑（单题推进/断点续答）
-│   └── result.js       # 结果渲染 + Canvas 海报生成
+│   └── result.js       # 结果渲染（总分/判级/维度/类型）
 └── data/               # 量表数据（加新量表只动这里）
-    ├── type16.js       # 十六型人格（OEJTS 1.2 官方 32 题，含英文原文）
-    ├── bigfive.js      # 大五人格（IPIP-NEO-60，公有领域 60 题）
+    ├── type16.js       # MBTI 十六型（题目 OEJTS 1.2，32 题，含英文原文）
+    ├── bigfive.js      # Big Five 大五（IPIP-NEO-60，60 题）
     ├── attachment.js   # 恋爱依恋（12 道原创平行题，焦虑×回避 → 四象限）
     ├── gses.js         # 一般自我效能感（10题）
     ├── psss.js         # 领悟社会支持（12题）
@@ -48,7 +48,7 @@ site/
 | 维度均值 | `dimsMode` | 大五人格 | 五维均值（1-5）+ 档位解读 + 组合提示 |
 | 四象限 | `quadrantMode` | 恋爱依恋 | 两维均值 + 阈值 → 四型 |
 
-## 大五人格（IPIP-NEO-60）说明
+## Big Five 大五人格（IPIP-NEO-60）说明
 
 - 来源：International Personality Item Pool（IPIP-NEO-60），Maples-Keller et al. (2019)，
   官方计分键 ipip.ori.org/IPIP-NEO-60ScoringKeys.htm；**public domain，可商用、可翻译、可改编**
@@ -63,7 +63,7 @@ site/
 - 焦虑 6 题 + 回避 6 题，各取均值（1-5），阈值 3.0 切四象限：安全型 / 焦虑型 / 回避型 / 恐惧型
 - 报告同时给「类型标签」（传播用）和「两维连续坐标」（可信度用），并提示模式可变
 
-## 十六型人格（OEJTS 官方版）说明
+## MBTI 十六型人格（题目：OEJTS 1.2 版）说明
 
 题库采用 **Open Extended Jungian Type Scales 1.2**（Eric Jorgenson, 2014, Open Psychometrics，
 <https://openpsychometrics.org/tests/OEJTS/>）官方公开的 32 道双极题，英文原文保存在每题的
@@ -74,7 +74,6 @@ site/
 - **flip 字段**：官方题面中高极有时在左、有时在右；`flip: true` 表示该题"高极在左侧"，
   引擎对该题取反号累加，保证与官方计分完全等价（已逐题定向测试验证）
 - **不含**：官方在线版第二部分 28 道随机自陈题（从 40 题池抽样，计分键未公开）
-- 与 MBTI® 官方测验无关；MBTI 为 The Myers-Briggs Company 注册商标，本站不使用该商标
 
 ## 加一个新量表 = 新建一个 data 文件
 

@@ -11,8 +11,6 @@
   --primary-light: #eef2ff;
   --primary-faint: #f5f7ff;
   --grad2: #8b5cf6;
-  --poster-from: #4f46e5;
-  --poster-to: #8b5cf6;
   --ink: #1e293b;
   --ink-2: #475569;
   --ink-soft: #64748b;
@@ -32,21 +30,21 @@
 /* ---------- 主题：青提 ---------- */
 html[data-theme="qing"] {
   --primary: #2f9e82; --primary-dark: #247f68; --primary-light: #e6f5f0; --primary-faint: #f2faf7;
-  --grad2: #57b9a0; --poster-from: #2f9e82; --poster-to: #6fc7ae;
+  --grad2: #57b9a0;
   --shadow-primary: 0 8px 20px rgba(47, 158, 130, .26);
 }
 
 /* ---------- 主题：蜜桃 ---------- */
 html[data-theme="peach"] {
   --primary: #e07a5f; --primary-dark: #c05f46; --primary-light: #fdf0ec; --primary-faint: #fef7f4;
-  --grad2: #f2a35f; --poster-from: #e07a5f; --poster-to: #f2a35f;
+  --grad2: #f2a35f;
   --shadow-primary: 0 8px 20px rgba(224, 122, 95, .28);
 }
 
 /* ---------- 主题：靛蓝 ---------- */
 html[data-theme="ink"] {
   --primary: #3d5a80; --primary-dark: #2f4670; --primary-light: #e9eff6; --primary-faint: #f4f7fb;
-  --grad2: #5d8ab5; --poster-from: #3d5a80; --poster-to: #5d8ab5;
+  --grad2: #5d8ab5;
   --shadow-primary: 0 8px 20px rgba(61, 90, 128, .26);
 }
 
@@ -97,6 +95,9 @@ body {
 .hero__sub {
   position: relative; z-index: 1;
   margin-top: 14px; font-size: 15px; color: rgba(255,255,255,.82);
+}
+.hero__sub--two {
+  margin-top: 8px; font-size: 13px; color: rgba(255,255,255,.66);
 }
 .hero__cta {
   position: relative; z-index: 1;
@@ -321,6 +322,15 @@ body {
   font-weight: 600;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, .10);
 }
+/* 双语句二选一（九型人格等）：两句等宽并排 */
+.option-btn--pair {
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: center;
+}
+@media (min-width: 520px) {
+  .options--pair { display: grid; grid-template-columns: 1fr 1fr; }
+}
 
 .quiz-nav { display: flex; justify-content: space-between; margin-top: 16px; }
 .instruction { margin-top: 18px; font-size: 12px; color: var(--ink-soft); line-height: 1.7; text-align: center; }
@@ -359,25 +369,6 @@ body {
    ============================================================ */
 .result-head { display: flex; align-items: center; gap: 12px; padding: 16px 0 4px; }
 .result-head h1 { font-size: 17px; font-weight: 600; }
-
-.poster-card {
-  margin-top: 16px;
-  border-radius: var(--radius-lg);
-  padding: 32px 24px;
-  text-align: center; color: #fff;
-  background: linear-gradient(160deg, var(--poster-from) 0%, var(--grad2) 55%, var(--poster-to) 100%);
-  box-shadow: 0 12px 32px rgba(79, 70, 229, .32);
-}
-.poster-brand { font-size: 13px; opacity: .85; letter-spacing: 4px; }
-#posterScaleName { margin-top: 14px; font-size: 18px; font-weight: 500; opacity: .95; }
-.poster-level { margin-top: 14px; font-size: 42px; font-weight: 700; letter-spacing: 2px; }
-.poster-score { margin-top: 10px; font-size: 14px; opacity: .92; }
-.poster-bars { margin: 22px auto 0; max-width: 320px; display: flex; flex-direction: column; gap: 9px; }
-.poster-bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
-.poster-bar-label { width: 72px; text-align: right; opacity: .92; flex-shrink: 0; }
-.poster-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,.25); border-radius: 999px; overflow: hidden; }
-.poster-bar-fill { height: 100%; background: #fff; border-radius: 999px; }
-.poster-footnote { margin-top: 24px; font-size: 11px; opacity: .78; line-height: 1.6; }
 
 .detail-card h3 { font-size: 20px; color: var(--primary-dark); }
 .detail-card > p { margin-top: 6px; font-size: 13px; color: var(--ink-soft); }
@@ -421,7 +412,6 @@ body {
 }
 
 
-#posterCanvas { display: none; }
 
 /* ============================================================
    响应式
@@ -540,7 +530,7 @@ body.intro-page .app { max-width: 1200px; }
 }
 @keyframes lpFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-/* ---------- 信任条 ---------- */
+/* ---------- 信任条（题源 / 隐私说明） ---------- */
 .lp-trust {
   display: flex; flex-wrap: wrap; gap: 10px 26px;
   justify-content: center;
@@ -590,6 +580,17 @@ body.intro-page .app { max-width: 1200px; }
 .lp-what__note { margin-top: 14px; font-size: 12px; color: var(--ink-soft); }
 .lp-what__text { font-size: 15px; color: var(--ink); line-height: 1.9; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
 
+/* 简介引导段：Hero 之下、维度卡之前的 2-3 句说明 */.lp-what__lead {
+  font-size: 15px; color: var(--ink-2); line-height: 1.9;
+  background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--primary);
+  border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px;
+}
+.lp-what__lead:empty { display: none; }
+
+/* 版本选择下方的开始测试按钮 */.lp-start-cta { text-align: center; padding: 10px 20px 0; }
+.lp-start-cta__btn { display: inline-block; width: auto; padding: 14px 56px; font-size: 16px; }
+.lp-start-cta__hint { margin-top: 10px; font-size: 12px; color: var(--ink-soft); }
+
 /* 四象限 */
 .lp-quad { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
 .lp-quad__cell {
@@ -604,7 +605,7 @@ body.intro-page .app { max-width: 1200px; }
 .lp-quad__cell--fear { border-color: #e8d2ee; background: #fbf5fc; }
 
 /* ---------- 测完得到什么 ---------- */
-.lp-gain { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.lp-gain { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .lp-gain__card {
   background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
   padding: 20px 14px; text-align: center;
@@ -614,8 +615,33 @@ body.intro-page .app { max-width: 1200px; }
 .lp-gain__name { font-size: 14px; font-weight: 700; margin-top: 10px; color: var(--ink); }
 .lp-gain__desc { font-size: 12px; color: var(--ink-soft); line-height: 1.6; margin-top: 6px; }
 
-/* ---------- 怎么测 ---------- */
-.lp-steps { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 18px; }
+/* 双版本选择卡片 */
+.lp-versions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 8px; }
+.lp-version {
+  display: flex; flex-direction: column; gap: 4px; text-align: left;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color .15s, transform .12s, box-shadow .15s;
+}
+.lp-version b { font-size: 16px; color: var(--ink); }
+.lp-version span { font-size: 12px; color: var(--ink-soft); }
+.lp-version i { font-style: normal; font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+.lp-version:hover { transform: translateY(-1px); }
+.lp-version.active {
+  border-color: var(--c, var(--primary));
+  background: var(--primary-faint, #f5f5ff);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, .08);
+}
+.lp-version.active b { color: var(--c, var(--primary)); }
+@media (min-width: 560px) {
+  .lp-versions { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- 如何使用（一行 2 个：2×2 网格） ---------- */
+.lp-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px; }
 .lp-step {
   display: flex; gap: 14px; align-items: flex-start;
   background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
@@ -629,6 +655,16 @@ body.intro-page .app { max-width: 1200px; }
 }
 .lp-step b { display: block; font-size: 14px; color: var(--ink); margin-top: 5px; }
 .lp-step p { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.6; }
+/* PC 端：竖排居中（数字上 / 标题中 / 说明下），间距与场景卡保持一致 */
+@media (min-width: 640px) {
+  .lp-step {
+    flex-direction: column; align-items: center; text-align: center;
+    padding: 26px 14px 22px;
+  }
+  .lp-step__num { width: 38px; height: 38px; font-size: 16px; }
+  .lp-step b { margin-top: 12px; font-size: 15px; }
+  .lp-step p { margin-top: 6px; }
+}
 .lp-instruction { margin-top: 4px; }
 .lp-instruction h4 { font-size: 15px; color: var(--primary-dark); margin-bottom: 8px; }
 .lp-instruction p { font-size: 14px; line-height: 1.8; color: var(--ink); }
@@ -652,7 +688,7 @@ body.intro-page .app { max-width: 1200px; }
   color: #fff;
 }
 .lp-bottom-cta__title { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
-.lp-bottom-cta__btn { padding: 15px 54px; font-size: 17px; }
+.lp-bottom-cta__btn { display: inline-block; width: auto; padding: 15px 54px; font-size: 17px; }
 
 /* ---------- 相关推荐 ---------- */
 .lp-rec { display: grid; grid-template-columns: 1fr; gap: 12px; }
@@ -675,7 +711,6 @@ body.intro-page .app { max-width: 1200px; }
 
 /* ---------- 专题页响应式 ---------- */
 @media (min-width: 640px) {
-  .lp-steps { grid-template-columns: repeat(3, 1fr); }
   .lp-rec { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 }
 @media (min-width: 860px) {
@@ -687,6 +722,86 @@ body.intro-page .app { max-width: 1200px; }
   .lp-hero__icon { width: 240px; height: 240px; font-size: 104px; }
   .lp-section { padding: 56px 30px 12px; }
 }
-@media (min-width: 1100px) {
-  .lp-gain { grid-template-columns: repeat(5, 1fr); }
+
+/* ---------- 使用场景 ---------- */
+.lp-scenario { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.lp-scenario__card {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 16px 14px;
+  box-shadow: var(--shadow);
 }
+.lp-scenario__icon { font-size: 26px; }
+.lp-scenario__card b { display: block; font-size: 15px; color: var(--ink); margin-top: 10px; }
+.lp-scenario__card p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin-top: 6px; }
+
+/* ---------- 常见问题 ---------- */
+.lp-faq { display: flex; flex-direction: column; gap: 10px; }
+.lp-faq__item {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden;
+}
+.lp-faq__item summary {
+  cursor: pointer; list-style: none;
+  padding: 15px 18px;
+  font-size: 15px; font-weight: 600; color: var(--ink);
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+}
+.lp-faq__item summary::-webkit-details-marker { display: none; }
+.lp-faq__item summary::after {
+  content: '+'; flex: none; font-size: 20px; font-weight: 400;
+  color: var(--ink-soft); transition: transform .18s ease;
+}
+.lp-faq__item[open] summary::after { transform: rotate(45deg); }
+.lp-faq__item p {
+  padding: 0 18px 15px; margin: 0;
+  font-size: 14px; color: var(--ink-soft); line-height: 1.85;
+}
+
+/* ---------- 使用指南 TAB ---------- */
+.lp-tabs { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 18px 20px; box-shadow: var(--shadow); }
+.lp-tabs__nav {
+  display: flex; gap: 6px;
+  padding: 5px;
+  background: var(--bg, #f1f2f7);
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+.lp-tabs__tab {
+  flex: 1;
+  padding: 9px 10px;
+  font-size: 14px; font-weight: 600; color: var(--ink-soft);
+  background: transparent; border: none; border-radius: 9px; cursor: pointer;
+  transition: background .18s ease, color .18s ease;
+  white-space: nowrap;
+}
+.lp-tabs__tab.active {
+  background: #fff; color: var(--primary);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, .08);
+}
+.lp-tabs__pane { display: none; }
+.lp-tabs__pane.active { display: block; animation: lpFade .25s ease; }
+@keyframes lpFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* TAB 内间距微调 */
+.lp-tabs__pane .lp-steps { margin-bottom: 0; }
+.lp-tabs__pane .lp-instruction { margin-top: 14px; }
+
+/* TAB 内的使用场景：强制 2×2（优先级高于通用网格） */
+.lp-tabs__pane .lp-scenario { grid-template-columns: repeat(2, 1fr); }
+
+/* ---------- 卡片网格统一规则：一律 2 列、等宽、同间距 ---------- */
+.lp-gain,
+.lp-scenario,
+.lp-steps {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+/* 兜底：若某量表卡片数为奇数，最后一张占满整行，避免半宽孤卡 */
+.lp-gain__card:last-child:nth-child(odd),
+.lp-scenario__card:last-child:nth-child(odd),
+.lp-step:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+/* 等高：同一行卡片拉伸到一致高度，视觉更整齐 */
+.lp-gain, .lp-scenario, .lp-steps { align-items: stretch; }
+.lp-gain__card, .lp-scenario__card, .lp-step { height: 100%; box-sizing: border-box; }

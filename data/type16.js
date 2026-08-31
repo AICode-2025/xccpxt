@@ -1,105 +1,234 @@
 /* ============================================================
- * 十六型人格测试（OEJTS 1.2 官方版本）
+ * MBTI 十六型人格测评（双版本）
  *
- * 来源：Open Extended Jungian Type Scales 1.2
+ * 来源：核心 32 题源自 Open Extended Jungian Type Scales 1.2
  *       Eric Jorgenson (2014), Open Psychometrics
  *       https://openpsychometrics.org/tests/OEJTS/
+ *       深度版扩充题（id 33-96）为本站自编。
  *
- * 题项：官方 32 道双极题（bipolar trait pairs），英文原文逐条照录于 textEn 字段，
- *       中文为对照翻译。每题 5 档：1 = 完全偏左描述，5 = 完全偏右描述。
+ * 结构：
+ *   - 速测版 quick：每维度精选 5 道 = 20 题（几分钟可测完，适合分享）
+ *   - 深度版 deep ：原 32 题 + 自编 64 题 = 96 题（每维度 24 题，覆盖更全）
+ * 基座只放共用信息（标题/文案/16 型类型表等），各版本自己的
+ * questions / options / poleMode 放在 versions 内，由引擎合并为激活态。
+ *
+ * 题项：双极题（bipolar trait pairs），官方英文原文照录于 textEn 字段，
+ *       中文为对照翻译；自编题中文为主，附自译 textEn。每题 5 档：
+ *       1 = 完全偏左描述，5 = 完全偏右描述。
  *
  * 计分（与官方实现一致）：
- *   - 每个维度 8 题，原始分 = 该维度 8 题作答值之和，区间 8-40
- *   - 阈值 24（即 8 × 中立值 3）：> 24 取"高极"，否则取"低极"
- *   - EI：≤24 → E，>24 → I
- *   - SN：≤24 → S，>24 → N
- *   - TF：≤24 → F，>24 → T
- *   - JP：≤24 → J，>24 → P
- *   - 百分比：高极占比 = (原始分 - 8) / 32 × 100
+ *   - 引擎用 -2..+2 的有符号权重累加，正值方向 = 高极（I/N/T/P）
+ *   - 官方题面中高极有时在左、有时在右，故用 flip:true 标记"高极在左侧"的题目
+ *   - 维度得分 = 该侧权重和，权重和大的一侧即主导极，平票取维度默认极
+ *   - quick 每维 5 题 / deep 每维 24 题，百分比重按当版题数换算
  *
- * 实现说明：引擎内部用 -2..+2 的有符号权重累加，正值方向 = 高极（I/N/T/P）。
- *           官方题面中高极有时在左、有时在右，故用 flip:true 标记"高极在左侧"的题目，
- *           引擎对该题取反号，保证与官方计分完全等价。
- *
- * 说明：官方在线版另有第二部分 28 道随机自陈题（从 40 题池中抽样，计分键未公开），
- *       本实现采用官方核心的 32 道双极题版本（与 openjung/core 打包的题目范围一致）。
- *
- * 与 MBTI® 官方测验无关；MBTI 为 The Myers-Briggs Company 注册商标，本站不使用该商标。
  * ============================================================ */
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.type16 = {
   id: 'type16',
   icon: '🧭',
   color: '#4f46e5',
-  hook: '你是哪种人格？32 题测出你的十六型',
-  intro: '测出你在荣格四维（外向/内向 · 实感/直觉 · 思考/情感 · 计划/随性）上的偏好，组合成 16 种人格类型之一。结果包含：类型代码、专属中文昵称、人格画像、优势与提醒、可能适合的方向。',
-  source: 'Open Extended Jungian Type Scales 1.2（OEJTS）· Open Psychometrics · 开源免费',
-  title: '十六型人格测试',
-  short: '十六型人格',
+  hook: '你是哪种人格？速测 20 题 / 深度 96 题，测出你的十六型',
+  intro: 'MBTI 从外向/内向、实感/直觉、思考/情感、计划/随性四个维度刻画你的性格偏好，组合成 16 种人格类型之一。速测 20 题适合快速上手与分享，深度 96 题更全面地描出你的类型画像。结果包含类型代码、专属中文昵称、人格画像、优势与提醒，以及可能适合的方向。',
+  source: '核心题源自 Open Extended Jungian Type Scales 1.2（OEJTS）· Open Psychometrics · 深度版扩充题为自编',
+  title: 'MBTI 十六型人格测评',
+  short: 'MBTI 十六型',
   category: 'explore',
   disclaimerLevel: 'explore',
   timeMinutes: 5,
-  desc: '32 道二选一，测出你的十六型人格和专属中文代号。',
+  desc: '双极题速测 20 题 / 深度 96 题，测出你的十六型人格和专属中文代号。',
   instruction: '每题两端是两种相反的描述，凭第一直觉选更像你的那一端。没有好坏之分，越真实越准。',
-  options: [
-    { text: '非常像左边', score: -2 },
-    { text: '有点像左边', score: -1 },
-    { text: '两边都像 / 说不清', score: 0 },
-    { text: '有点像右边', score: 1 },
-    { text: '非常像右边', score: 2 }
-  ],
-  questions: [
-    /* ---------- JP 维度（1,5,9,13,17,21,25,29）：低极 J，高极 P ---------- */
-    { id: 1,  dim: 'JP', flip: false, text: '爱列清单 ←——→ 靠脑子记',               textEn: 'makes lists ←——→ relies on memory' },
-    { id: 5,  dim: 'JP', flip: false, text: '房间保持整洁 ←——→ 东西随手放',         textEn: 'keeps a clean room ←——→ just puts stuff where ever' },
-    { id: 9,  dim: 'JP', flip: true,  text: '随性凌乱 ←——→ 井井有条',               textEn: 'chaotic ←——→ organized' },
-    { id: 13, dim: 'JP', flip: false, text: '提前很久做计划 ←——→ 临时才定',         textEn: 'plans far ahead ←——→ plans at the last minute' },
-    { id: 17, dim: 'JP', flip: true,  text: '保留各种选项 ←——→ 尽早敲定',           textEn: 'keeps options open ←——→ commits' },
-    { id: 21, dim: 'JP', flip: false, text: '活儿马上干完 ←——→ 有拖延症',           textEn: 'gets work done right away ←——→ procrastinates' },
-    { id: 25, dim: 'JP', flip: true,  text: '现场即兴发挥 ←——→ 提前准备周全',       textEn: 'improvises ←——→ prepares' },
-    { id: 29, dim: 'JP', flip: false, text: '玩命工作 ←——→ 玩命玩乐',               textEn: 'works hard ←——→ plays hard' },
+  disclaimerExtra: '题目核心源自公开的 OEJTS 1.2（Open Psychometrics）中文改编版，深度版扩充题为本站自编。结果仅供自我探索与娱乐参考。',
+  versions: {
+    /* ---------------- 速测版 quick（20 题） ---------------- */
+    quick: {
+      label: '速测版',
+      timeMinutes: 3,
+      instruction: '每题两端是两种相反的描述，凭第一直觉选更像你的那一端。没有好坏之分，越真实越准。',
+      options: [
+        { text: '非常像左边', score: -2 },
+        { text: '有点像左边', score: -1 },
+        { text: '两边都像 / 说不清', score: 0 },
+        { text: '有点像右边', score: 1 },
+        { text: '非常像右边', score: 2 }
+      ],
+      questions: [
+        /* ---------- JP 维度（1,9,13,21,29）：低极 J，高极 P ---------- */
+        { id: 1,  dim: 'JP', flip: false, text: '爱列清单 ←——→ 靠脑子记',               textEn: 'makes lists ←——→ relies on memory' },
+        { id: 9,  dim: 'JP', flip: true,  text: '随性凌乱 ←——→ 井井有条',               textEn: 'chaotic ←——→ organized' },
+        { id: 13, dim: 'JP', flip: false, text: '提前很久做计划 ←——→ 临时才定',         textEn: 'plans far ahead ←——→ plans at the last minute' },
+        { id: 21, dim: 'JP', flip: false, text: '活儿马上干完 ←——→ 有拖延症',           textEn: 'gets work done right away ←——→ procrastinates' },
+        { id: 29, dim: 'JP', flip: false, text: '玩命工作 ←——→ 玩命玩乐',               textEn: 'works hard ←——→ plays hard' },
 
-    /* ---------- TF 维度（2,6,10,14,18,22,26,30）：低极 F，高极 T ---------- */
-    { id: 2,  dim: 'TF', flip: true,  text: '多疑 ←——→ 宁愿相信',                   textEn: 'sceptical ←——→ wants to believe' },
-    { id: 6,  dim: 'TF', flip: false, text: '觉得"像机器人"是骂人 ←——→ 追求机械般冷静的头脑', textEn: 'thinks "robotic" is an insult ←——→ strives to have a mechanical mind' },
-    { id: 10, dim: 'TF', flip: false, text: '容易受伤 ←——→ 皮实抗打击',             textEn: 'easily hurt ←——→ thick-skinned' },
-    { id: 14, dim: 'TF', flip: true,  text: '想要别人的尊重 ←——→ 想要别人的爱',     textEn: "wants people's respect ←——→ wants their love" },
-    { id: 18, dim: 'TF', flip: true,  text: '想擅长修东西 ←——→ 想擅长"修人"',       textEn: 'wants to be good at fixing things ←——→ wants to be good at fixing people' },
-    { id: 22, dim: 'TF', flip: false, text: '跟着心走 ←——→ 跟着脑子走',             textEn: 'follows the heart ←——→ follows the head' },
-    { id: 26, dim: 'TF', flip: true,  text: '道德基于公正 ←——→ 道德基于同情',       textEn: 'bases morality on justice ←——→ bases morality on compassion' },
-    { id: 30, dim: 'TF', flip: true,  text: '面对情绪不自在 ←——→ 重视情绪价值',     textEn: 'uncomfortable with emotions ←——→ values emotions' },
+        /* ---------- TF 维度（6,14,22,26,30）：低极 F，高极 T ---------- */
+        { id: 6,  dim: 'TF', flip: false, text: '觉得"像机器人"是骂人 ←——→ 追求机械般冷静的头脑', textEn: 'thinks "robotic" is an insult ←——→ strives to have a mechanical mind' },
+        { id: 14, dim: 'TF', flip: true,  text: '想要别人的尊重 ←——→ 想要别人的爱',     textEn: "wants people's respect ←——→ wants their love" },
+        { id: 22, dim: 'TF', flip: false, text: '跟着心走 ←——→ 跟着脑子走',             textEn: 'follows the heart ←——→ follows the head' },
+        { id: 26, dim: 'TF', flip: true,  text: '道德基于公正 ←——→ 道德基于同情',       textEn: 'bases morality on justice ←——→ bases morality on compassion' },
+        { id: 30, dim: 'TF', flip: true,  text: '面对情绪不自在 ←——→ 重视情绪价值',     textEn: 'uncomfortable with emotions ←——→ values emotions' },
 
-    /* ---------- EI 维度（3,7,11,15,19,23,27,31）：低极 E，高极 I ---------- */
-    { id: 3,  dim: 'EI', flip: false, text: '一个人待着会闷 ←——→ 需要独处时间',     textEn: 'bored by time alone ←——→ needs time alone' },
-    { id: 7,  dim: 'EI', flip: false, text: '精力旺盛 ←——→ 温和慢热',               textEn: 'energetic ←——→ mellow' },
-    { id: 11, dim: 'EI', flip: false, text: '团队里干活最来劲 ←——→ 一个人干效率最高', textEn: 'works best in groups ←——→ works best alone' },
-    { id: 15, dim: 'EI', flip: true,  text: '聚会让我耗电 ←——→ 聚会让我充电',       textEn: 'gets worn out by parties ←——→ gets fired up by parties' },
-    { id: 19, dim: 'EI', flip: false, text: '说得多 ←——→ 听得多',                   textEn: 'talks more ←——→ listens more' },
-    { id: 23, dim: 'EI', flip: true,  text: '宅在家 ←——→ 出门浪',                   textEn: 'stays at home ←——→ goes out on the town' },
-    { id: 27, dim: 'EI', flip: true,  text: '很难大声喊出来 ←——→ 对远处的人喊话很自然', textEn: 'finds it difficult to yell very loudly ←——→ yelling to others when they are far away comes naturally' },
-    { id: 31, dim: 'EI', flip: false, text: '喜欢在人前表现 ←——→ 回避公开发言',     textEn: 'likes to perform in front of other people ←——→ avoids public speaking' },
+        /* ---------- EI 维度（3,7,15,19,31）：低极 E，高极 I ---------- */
+        { id: 3,  dim: 'EI', flip: false, text: '一个人待着会闷 ←——→ 需要独处时间',     textEn: 'bored by time alone ←——→ needs time alone' },
+        { id: 7,  dim: 'EI', flip: false, text: '精力旺盛 ←——→ 温和慢热',               textEn: 'energetic ←——→ mellow' },
+        { id: 15, dim: 'EI', flip: true,  text: '聚会让我耗电 ←——→ 聚会让我充电',       textEn: 'gets worn out by parties ←——→ gets fired up by parties' },
+        { id: 19, dim: 'EI', flip: false, text: '说得多 ←——→ 听得多',                   textEn: 'talks more ←——→ listens more' },
+        { id: 31, dim: 'EI', flip: false, text: '喜欢在人前表现 ←——→ 回避公开发言',     textEn: 'likes to perform in front of other people ←——→ avoids public speaking' },
 
-    /* ---------- SN 维度（4,8,12,16,20,24,28,32）：低极 S，高极 N ---------- */
-    { id: 4,  dim: 'SN', flip: false, text: '接受现状 ←——→ 对现状不满',             textEn: 'accepts things as they are ←——→ unsatisfied with the ways things are' },
-    { id: 8,  dim: 'SN', flip: false, text: '喜欢做选择题 ←——→ 喜欢写论述题',       textEn: 'prefer to take multiple choice test ←——→ prefer essay answers' },
-    { id: 12, dim: 'SN', flip: false, text: '着眼当下 ←——→ 着眼未来',               textEn: 'focused on the present ←——→ focused on the future' },
-    { id: 16, dim: 'SN', flip: false, text: '融入人群 ←——→ 与众不同',               textEn: 'fits in ←——→ stands out' },
-    { id: 20, dim: 'SN', flip: false, text: '讲事情时说"发生了什么" ←——→ 说"这意味着什么"', textEn: 'when describing an event, will tell people what happened ←——→ will tell people what it meant' },
-    { id: 24, dim: 'SN', flip: true,  text: '要全局和方向 ←——→ 要细节和数据',       textEn: 'wants the big picture ←——→ wants the details' },
-    { id: 28, dim: 'SN', flip: true,  text: '偏理论抽象 ←——→ 偏实证经验',           textEn: 'theoretical ←——→ empirical' },
-    { id: 32, dim: 'SN', flip: false, text: '想知道"谁/什么/什么时候" ←——→ 想知道"为什么"', textEn: 'likes to know "who?", "what?", "when?" ←——→ likes to know "why?"' }
-  ],
-  /* 极性计分：left = 低极（阈值以下），right = 高极（阈值以上） */
-  poleMode: {
-    thresholdNote: '每维 8 题 × 5 档，原始分 8-40，阈值 24；> 24 取高极',
-    dimensions: [
-      { key: 'EI', left: { code: 'E', label: '外向' }, right: { code: 'I', label: '内向' }, questions: [3, 7, 11, 15, 19, 23, 27, 31], default: 'E' },
-      { key: 'SN', left: { code: 'S', label: '实感' }, right: { code: 'N', label: '直觉' }, questions: [4, 8, 12, 16, 20, 24, 28, 32], default: 'S' },
-      { key: 'TF', left: { code: 'F', label: '情感' }, right: { code: 'T', label: '思考' }, questions: [2, 6, 10, 14, 18, 22, 26, 30], default: 'F' },
-      { key: 'JP', left: { code: 'J', label: '计划' }, right: { code: 'P', label: '随性' }, questions: [1, 5, 9, 13, 17, 21, 25, 29], default: 'J' }
-    ]
+        /* ---------- SN 维度（4,12,16,24,32）：低极 S，高极 N ---------- */
+        { id: 4,  dim: 'SN', flip: false, text: '接受现状 ←——→ 对现状不满',             textEn: 'accepts things as they are ←——→ unsatisfied with the ways things are' },
+        { id: 12, dim: 'SN', flip: false, text: '着眼当下 ←——→ 着眼未来',               textEn: 'focused on the present ←——→ focused on the future' },
+        { id: 16, dim: 'SN', flip: false, text: '融入人群 ←——→ 与众不同',               textEn: 'fits in ←——→ stands out' },
+        { id: 24, dim: 'SN', flip: true,  text: '要全局和方向 ←——→ 要细节和数据',       textEn: 'wants the big picture ←——→ wants the details' },
+        { id: 32, dim: 'SN', flip: false, text: '想知道"谁/什么/什么时候" ←——→ 想知道"为什么"', textEn: 'likes to know "who?", "what?", "when?" ←——→ likes to know "why?"' }
+      ],
+      /* 极性计分：left = 低极（阈值以下），right = 高极（阈值以上） */
+      poleMode: {
+        thresholdNote: '每维 5 题，权重差定极',
+        dimensions: [
+          { key: 'EI', left: { code: 'E', label: '外向' }, right: { code: 'I', label: '内向' }, questions: [3, 7, 15, 19, 31], default: 'E' },
+          { key: 'SN', left: { code: 'S', label: '实感' }, right: { code: 'N', label: '直觉' }, questions: [4, 12, 16, 24, 32], default: 'S' },
+          { key: 'TF', left: { code: 'F', label: '情感' }, right: { code: 'T', label: '思考' }, questions: [6, 14, 22, 26, 30], default: 'F' },
+          { key: 'JP', left: { code: 'J', label: '计划' }, right: { code: 'P', label: '随性' }, questions: [1, 9, 13, 21, 29], default: 'J' }
+        ]
+      }
+    },
+    /* ---------------- 深度版 deep（96 题） ---------------- */
+    deep: {
+      label: '深度版',
+      timeMinutes: 10,
+      instruction: '每题两端是两种相反的描述，凭第一直觉选更像你的那一端。96 题全面覆盖四个维度，结果更精确。',
+      options: [
+        { text: '非常像左边', score: -2 },
+        { text: '有点像左边', score: -1 },
+        { text: '两边都像 / 说不清', score: 0 },
+        { text: '有点像右边', score: 1 },
+        { text: '非常像右边', score: 2 }
+      ],
+      questions: [
+        /* ---------- JP 维度（1,5,9,13,17,21,25,29）：低极 J，高极 P ---------- */
+        { id: 1,  dim: 'JP', flip: false, text: '爱列清单 ←——→ 靠脑子记',               textEn: 'makes lists ←——→ relies on memory' },
+        { id: 5,  dim: 'JP', flip: false, text: '房间保持整洁 ←——→ 东西随手放',         textEn: 'keeps a clean room ←——→ just puts stuff where ever' },
+        { id: 9,  dim: 'JP', flip: true,  text: '随性凌乱 ←——→ 井井有条',               textEn: 'chaotic ←——→ organized' },
+        { id: 13, dim: 'JP', flip: false, text: '提前很久做计划 ←——→ 临时才定',         textEn: 'plans far ahead ←——→ plans at the last minute' },
+        { id: 17, dim: 'JP', flip: true,  text: '保留各种选项 ←——→ 尽早敲定',           textEn: 'keeps options open ←——→ commits' },
+        { id: 21, dim: 'JP', flip: false, text: '活儿马上干完 ←——→ 有拖延症',           textEn: 'gets work done right away ←——→ procrastinates' },
+        { id: 25, dim: 'JP', flip: true,  text: '现场即兴发挥 ←——→ 提前准备周全',       textEn: 'improvises ←——→ prepares' },
+        { id: 29, dim: 'JP', flip: false, text: '玩命工作 ←——→ 玩命玩乐',               textEn: 'works hard ←——→ plays hard' },
+
+        /* ---------- TF 维度（2,6,10,14,18,22,26,30）：低极 F，高极 T ---------- */
+        { id: 2,  dim: 'TF', flip: true,  text: '多疑 ←——→ 宁愿相信',                   textEn: 'sceptical ←——→ wants to believe' },
+        { id: 6,  dim: 'TF', flip: false, text: '觉得"像机器人"是骂人 ←——→ 追求机械般冷静的头脑', textEn: 'thinks "robotic" is an insult ←——→ strives to have a mechanical mind' },
+        { id: 10, dim: 'TF', flip: false, text: '容易受伤 ←——→ 皮实抗打击',             textEn: 'easily hurt ←——→ thick-skinned' },
+        { id: 14, dim: 'TF', flip: true,  text: '想要别人的尊重 ←——→ 想要别人的爱',     textEn: "wants people's respect ←——→ wants their love" },
+        { id: 18, dim: 'TF', flip: true,  text: '想擅长修东西 ←——→ 想擅长"修人"',       textEn: 'wants to be good at fixing things ←——→ wants to be good at fixing people' },
+        { id: 22, dim: 'TF', flip: false, text: '跟着心走 ←——→ 跟着脑子走',             textEn: 'follows the heart ←——→ follows the head' },
+        { id: 26, dim: 'TF', flip: true,  text: '道德基于公正 ←——→ 道德基于同情',       textEn: 'bases morality on justice ←——→ bases morality on compassion' },
+        { id: 30, dim: 'TF', flip: true,  text: '面对情绪不自在 ←——→ 重视情绪价值',     textEn: 'uncomfortable with emotions ←——→ values emotions' },
+
+        /* ---------- EI 维度（3,7,11,15,19,23,27,31）：低极 E，高极 I ---------- */
+        { id: 3,  dim: 'EI', flip: false, text: '一个人待着会闷 ←——→ 需要独处时间',     textEn: 'bored by time alone ←——→ needs time alone' },
+        { id: 7,  dim: 'EI', flip: false, text: '精力旺盛 ←——→ 温和慢热',               textEn: 'energetic ←——→ mellow' },
+        { id: 11, dim: 'EI', flip: false, text: '团队里干活最来劲 ←——→ 一个人干效率最高', textEn: 'works best in groups ←——→ works best alone' },
+        { id: 15, dim: 'EI', flip: true,  text: '聚会让我耗电 ←——→ 聚会让我充电',       textEn: 'gets worn out by parties ←——→ gets fired up by parties' },
+        { id: 19, dim: 'EI', flip: false, text: '说得多 ←——→ 听得多',                   textEn: 'talks more ←——→ listens more' },
+        { id: 23, dim: 'EI', flip: true,  text: '宅在家 ←——→ 出门浪',                   textEn: 'stays at home ←——→ goes out on the town' },
+        { id: 27, dim: 'EI', flip: true,  text: '很难大声喊出来 ←——→ 对远处的人喊话很自然', textEn: 'finds it difficult to yell very loudly ←——→ yelling to others when they are far away comes naturally' },
+        { id: 31, dim: 'EI', flip: false, text: '喜欢在人前表现 ←——→ 回避公开发言',     textEn: 'likes to perform in front of other people ←——→ avoids public speaking' },
+
+        /* ---------- SN 维度（4,8,12,16,20,24,28,32）：低极 S，高极 N ---------- */
+        { id: 4,  dim: 'SN', flip: false, text: '接受现状 ←——→ 对现状不满',             textEn: 'accepts things as they are ←——→ unsatisfied with the ways things are' },
+        { id: 8,  dim: 'SN', flip: false, text: '喜欢做选择题 ←——→ 喜欢写论述题',       textEn: 'prefer to take multiple choice test ←——→ prefer essay answers' },
+        { id: 12, dim: 'SN', flip: false, text: '着眼当下 ←——→ 着眼未来',               textEn: 'focused on the present ←——→ focused on the future' },
+        { id: 16, dim: 'SN', flip: false, text: '融入人群 ←——→ 与众不同',               textEn: 'fits in ←——→ stands out' },
+        { id: 20, dim: 'SN', flip: false, text: '讲事情时说"发生了什么" ←——→ 说"这意味着什么"', textEn: 'when describing an event, will tell people what happened ←——→ will tell people what it meant' },
+        { id: 24, dim: 'SN', flip: true,  text: '要全局和方向 ←——→ 要细节和数据',       textEn: 'wants the big picture ←——→ wants the details' },
+        { id: 28, dim: 'SN', flip: true,  text: '偏理论抽象 ←——→ 偏实证经验',           textEn: 'theoretical ←——→ empirical' },
+        { id: 32, dim: 'SN', flip: false, text: '想知道"谁/什么/什么时候" ←——→ 想知道"为什么"', textEn: 'likes to know "who?", "what?", "when?" ←——→ likes to know "why?"' },
+
+        /* ---------- EI 扩充题（33-48，共 16 题）：低极 E，高极 I ---------- */
+        { id: 33, dim: 'EI', flip: false, text: '主动破冰找话题 ←——→ 等对方先开口',     textEn: 'breaks the ice first ←——→ waits for the other to speak' },
+        { id: 34, dim: 'EI', flip: true,  text: '一场聚会下来精疲力竭 ←——→ 一场聚会下来精神百倍', textEn: 'a party leaves you drained ←——→ a party leaves you energized' },
+        { id: 35, dim: 'EI', flip: false, text: '心事先说出来才舒坦 ←——→ 心事先自己消化一阵', textEn: 'relieves by talking it out ←——→ processes it alone first' },
+        { id: 36, dim: 'EI', flip: false, text: '大群里聊得最欢 ←——→ 一对一才聊得开',   textEn: 'most lively in group chats ←——→ opens up one-on-one' },
+        { id: 37, dim: 'EI', flip: false, text: '上台越讲越来劲 ←——→ 上台盼着早点结束', textEn: 'gets fired up the longer you speak ←——→ counts down until it ends' },
+        { id: 38, dim: 'EI', flip: true,  text: '社交一到量就想撤 ←——→ 社交档期越满越高兴', textEn: 'wants to leave once socially full ←——→ happier with a fuller social calendar' },
+        { id: 39, dim: 'EI', flip: false, text: '假期想约满朋友 ←——→ 假期想留几天独处', textEn: 'wants holidays packed with friends ←——→ wants alone days on holiday' },
+        { id: 40, dim: 'EI', flip: true,  text: '风头来了想躲开 ←——→ 享受当全场焦点',   textEn: 'shrinks from the spotlight ←——→ enjoys being the center of attention' },
+        { id: 41, dim: 'EI', flip: false, text: '有事直接打电话 ←——→ 能打字绝不打电话', textEn: 'calls people directly ←——→ texts whenever possible' },
+        { id: 42, dim: 'EI', flip: true,  text: '聚会中途就想告辞 ←——→ 聚会散了还想续摊', textEn: 'wants to leave mid-party ←——→ wants the night to go on' },
+        { id: 43, dim: 'EI', flip: false, text: '朋友满天下 ←——→ 深交两三人足矣',       textEn: 'a friend in every crowd ←——→ a few close friends is enough' },
+        { id: 44, dim: 'EI', flip: false, text: '喜怒哀乐一眼看穿 ←——→ 情绪藏得住不外露', textEn: 'emotions show at a glance ←——→ keeps feelings hidden' },
+        { id: 45, dim: 'EI', flip: true,  text: '话出口前先过一遍 ←——→ 边想边说思路更清', textEn: 'mulls words over before speaking ←——→ thinks out loud and gets clearer' },
+        { id: 46, dim: 'EI', flip: false, text: '有成绩爱晒出来 ←——→ 有成绩懒得声张',   textEn: 'shares achievements widely ←——→ keeps achievements quiet' },
+        { id: 47, dim: 'EI', flip: true,  text: '累了一天靠独处回血 ←——→ 累了一天靠聊天回血', textEn: 'recharges alone ←——→ recharges by chatting' },
+        { id: 48, dim: 'EI', flip: false, text: '见陌生人照样放得开 ←——→ 只在熟人堆里自在', textEn: 'at ease with strangers ←——→ only relaxed among close friends' },
+
+        /* ---------- SN 扩充题（49-64，共 16 题）：低极 S，高极 N ---------- */
+        { id: 49, dim: 'SN', flip: false, text: '听事先抓具体细节 ←——→ 听事先抓整体框架', textEn: 'listens for concrete details ←——→ listens for the big picture' },
+        { id: 50, dim: 'SN', flip: true,  text: '脑子里常飘着想象 ←——→ 脑子里只有眼前的现实', textEn: 'mind often drifts to imagination ←——→ mind stays on immediate reality' },
+        { id: 51, dim: 'SN', flip: false, text: '买东西只看实用 ←——→ 买东西图那股新鲜劲', textEn: 'buys for practicality ←——→ buys for novelty' },
+        { id: 52, dim: 'SN', flip: false, text: '解难题按既定套路 ←——→ 解难题爱天马行空', textEn: 'solves problems by the book ←——→ solves problems out of the box' },
+        { id: 53, dim: 'SN', flip: true,  text: '问题越开放越来劲 ←——→ 问题越明确越安心', textEn: 'gets excited by open questions ←——→ feels safe with clear questions' },
+        { id: 54, dim: 'SN', flip: true,  text: '总想开辟新路 ←——→ 认准老办法',         textEn: 'always wants a new way ←——→ sticks to the proven way' },
+        { id: 55, dim: 'SN', flip: false, text: '讲道理爱举具体例子 ←——→ 讲道理爱谈抽象概念', textEn: 'explains with concrete examples ←——→ talks in abstract concepts' },
+        { id: 56, dim: 'SN', flip: false, text: '新东西直接上手试 ←——→ 新东西先心里推演一遍', textEn: 'tries new things hands-on ←——→ rehearses new things mentally first' },
+        { id: 57, dim: 'SN', flip: false, text: '拿不准时信亲身经验 ←——→ 拿不准时信系统理论', textEn: 'trusts personal experience ←——→ trusts systematic theory' },
+        { id: 58, dim: 'SN', flip: true,  text: '更着迷还没发生的事 ←——→ 只关心板上钉钉的事', textEn: 'fascinated by what could be ←——→ cares only about what is certain' },
+        { id: 59, dim: 'SN', flip: false, text: '描述东西是什么就说什么 ←——→ 描述东西爱打比方', textEn: 'describes things literally ←——→ describes things in metaphors' },
+        { id: 60, dim: 'SN', flip: false, text: '更享受把事做成 ←——→ 更享受把事想出来', textEn: 'enjoys getting things done ←——→ enjoys dreaming things up' },
+        { id: 61, dim: 'SN', flip: false, text: '取舍时更看重眼前 ←——→ 取舍时更看重长远', textEn: 'weighs the immediate ←——→ weighs the long term' },
+        { id: 62, dim: 'SN', flip: true,  text: '拿主意靠灵感闪现 ←——→ 拿主意靠数据说话', textEn: 'decides by inspiration ←——→ decides by the data' },
+        { id: 63, dim: 'SN', flip: true,  text: '爱从零做出新的 ←——→ 爱把已有的做精',   textEn: 'loves creating from scratch ←——→ loves perfecting what exists' },
+        { id: 64, dim: 'SN', flip: false, text: '做方案先抠局部细节 ←——→ 做方案先画整体蓝图', textEn: 'starts with local details ←——→ starts with the overall blueprint' },
+
+        /* ---------- TF 扩充题（65-80，共 16 题）：低极 F，高极 T ---------- */
+        { id: 65, dim: 'TF', flip: false, text: '争论时更靠感受 ←——→ 争论时更靠逻辑',   textEn: 'argues from feeling ←——→ argues from logic' },
+        { id: 66, dim: 'TF', flip: false, text: '处理问题先考虑人 ←——→ 处理问题只看事情本身', textEn: 'handles problems through people ←——→ handles problems as matters of fact' },
+        { id: 67, dim: 'TF', flip: false, text: '点评别人更看出发点 ←——→ 点评别人更看对错', textEn: 'judges others by intentions ←——→ judges others by right and wrong' },
+        { id: 68, dim: 'TF', flip: true,  text: '说话开门见山 ←——→ 说话顾感受绕一绕',   textEn: 'gets straight to the point ←——→ softens the message' },
+        { id: 69, dim: 'TF', flip: false, text: '更习惯先鼓励再指出 ←——→ 更习惯直接指出问题', textEn: 'encourages before critiquing ←——→ points out problems directly' },
+        { id: 70, dim: 'TF', flip: false, text: '更在意大家处得舒服 ←——→ 更在意事情办得高效', textEn: 'cares that everyone is comfortable ←——→ cares that things run efficiently' },
+        { id: 71, dim: 'TF', flip: false, text: '做事先看人情 ←——→ 做事先看原则',       textEn: 'weighs personal ties first ←——→ weighs principles first' },
+        { id: 72, dim: 'TF', flip: false, text: '做选择更凭直觉顺眼 ←——→ 做选择更靠权衡利弊', textEn: 'chooses by gut feeling ←——→ chooses by weighing pros and cons' },
+        { id: 73, dim: 'TF', flip: false, text: '争到最后怕伤和气 ←——→ 争到最后要争个输赢', textEn: 'backs off to keep the peace ←——→ argues to win' },
+        { id: 74, dim: 'TF', flip: true,  text: '真相再难听也要讲 ←——→ 有些真相不如不说', textEn: 'tells the truth even when it hurts ←——→ some truths are better left unsaid' },
+        { id: 75, dim: 'TF', flip: false, text: '打分时看具体情况 ←——→ 打分时统一标准', textEn: 'grades case by case ←——→ grades by one standard' },
+        { id: 76, dim: 'TF', flip: false, text: '朋友吐槽时先共情 ←——→ 朋友吐槽时先拆解', textEn: 'comforts a venting friend ←——→ analyzes a venting friend' },
+        { id: 77, dim: 'TF', flip: true,  text: '看破了就一定要说 ←——→ 看破不说破是常态', textEn: 'must voice what you notice ←——→ often leaves it unspoken' },
+        { id: 78, dim: 'TF', flip: false, text: '觉得安抚情绪最有用 ←——→ 觉得解决问题最有用', textEn: 'believes comfort helps most ←——→ believes fixing the problem helps most' },
+        { id: 79, dim: 'TF', flip: false, text: '论对错先看是谁 ←——→ 论对错不看是谁',   textEn: 'judges by whose side it is ←——→ judges regardless of who is involved' },
+        { id: 80, dim: 'TF', flip: true,  text: '大事习惯自己拍板 ←——→ 大事习惯先找人商量', textEn: 'decides big calls alone ←——→ consults others on big calls' },
+
+        /* ---------- JP 扩充题（81-96，共 16 题）：低极 J，高极 P ---------- */
+        { id: 81, dim: 'JP', flip: false, text: '出门前把行程排满 ←——→ 出门前不想定行程', textEn: 'fills the day with a tight plan ←——→ takes the day as it comes' },
+        { id: 82, dim: 'JP', flip: true,  text: '一个没做完就开新坑 ←——→ 做完一个再开一个', textEn: 'starts new things before finishing ←——→ finishes before starting new' },
+        { id: 83, dim: 'JP', flip: false, text: '生活有固定节律 ←——→ 生活没有固定节律', textEn: 'lives by a set routine ←——→ lives without a fixed pattern' },
+        { id: 84, dim: 'JP', flip: false, text: '有清单才推得动 ←——→ 靠一时兴起推进',   textEn: 'works from a checklist ←——→ works from sudden inspiration' },
+        { id: 85, dim: 'JP', flip: true,  text: 'deadline 前踩线交卷 ←——→ deadline 前早早收尾', textEn: 'sprints right at the deadline ←——→ wraps up well before the deadline' },
+        { id: 86, dim: 'JP', flip: true,  text: '生活越有变化越带劲 ←——→ 生活越稳定越安心', textEn: 'thrives on change ←——→ feels best with stability' },
+        { id: 87, dim: 'JP', flip: false, text: '干活先立个流程 ←——→ 干活全凭当下感觉', textEn: 'sets a process first ←——→ goes by how it feels in the moment' },
+        { id: 88, dim: 'JP', flip: false, text: '喜欢一鼓作气搞定 ←——→ 喜欢细水长流慢慢来', textEn: 'prefers to power through at once ←——→ prefers a steady slow pace' },
+        { id: 89, dim: 'JP', flip: false, text: '买东西看中就定 ←——→ 买东西要货比三家', textEn: 'buys when it clicks ←——→ compares many options before buying' },
+        { id: 90, dim: 'JP', flip: true,  text: '规矩总可以有例外 ←——→ 规矩就是规矩',   textEn: 'rules always have exceptions ←——→ rules are rules' },
+        { id: 91, dim: 'JP', flip: false, text: '桌面分门别类 ←——→ 桌面乱中有序',       textEn: 'keeps the desk neatly categorized ←——→ keeps the desk in controlled chaos' },
+        { id: 92, dim: 'JP', flip: false, text: '更在乎达成目标 ←——→ 更享受过程本身',   textEn: 'cares about hitting the goal ←——→ enjoys the process itself' },
+        { id: 93, dim: 'JP', flip: false, text: '定了的计划照办 ←——→ 计划说变就变',     textEn: 'follows plans once made ←——→ lets plans change on a whim' },
+        { id: 94, dim: 'JP', flip: false, text: '动手前先想清楚 ←——→ 先干起来再说',     textEn: 'thinks it through before acting ←——→ acts before thinking it through' },
+        { id: 95, dim: 'JP', flip: false, text: '先排好优先级再干 ←——→ 哪个急先处理哪个', textEn: 'sets priorities before acting ←——→ handles whatever is urgent' },
+        { id: 96, dim: 'JP', flip: true,  text: '每天换着花样来 ←——→ 老样子最安心',     textEn: 'varies things every day ←——→ most at ease with the usual' }
+      ],
+      /* 极性计分：left = 低极，right = 高极 */
+      poleMode: {
+        thresholdNote: '每维 24 题，权重差定极',
+        dimensions: [
+          { key: 'EI', left: { code: 'E', label: '外向' }, right: { code: 'I', label: '内向' }, questions: [3, 7, 11, 15, 19, 23, 27, 31, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48], default: 'E' },
+          { key: 'SN', left: { code: 'S', label: '实感' }, right: { code: 'N', label: '直觉' }, questions: [4, 8, 12, 16, 20, 24, 28, 32, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64], default: 'S' },
+          { key: 'TF', left: { code: 'F', label: '情感' }, right: { code: 'T', label: '思考' }, questions: [2, 6, 10, 14, 18, 22, 26, 30, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80], default: 'F' },
+          { key: 'JP', left: { code: 'J', label: '计划' }, right: { code: 'P', label: '随性' }, questions: [1, 5, 9, 13, 17, 21, 25, 29, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96], default: 'J' }
+        ]
+      }
+    }
   },
-  disclaimerExtra: '本题库采用 Open Extended Jungian Type Scales 1.2（Eric Jorgenson, 2014, Open Psychometrics）官方公开版本，与 MBTI® 官方测验无关，结果仅供自我探索与娱乐参考。',
   types: {
     INTJ: {
       nick: '深谋军师',

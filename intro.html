@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#4f46e5">
 <title>测评 · 星辰测评</title>
-<link rel="stylesheet" href="css/style.css">
-<script src="js/theme.js"></script>
+<link rel="stylesheet" href="css/style.css?v=20260831b">
+<script src="js/theme.js?v=20260831b"></script>
 </head>
 <body class="intro-page">
 <div class="app">
@@ -26,23 +26,33 @@
         <p class="lp-hero__hook" id="heroHook"></p>
         <div class="lp-hero__stats" id="heroStats"></div>
         <button class="lp-hero__cta" id="startBtn" type="button">开始测试</button>
-        <p class="lp-hero__hint" id="heroHint"></p>
       </div>
       <div class="lp-hero__visual" id="heroVisual"></div>
     </div>
   </header>
 
-  <!-- ================= 信任条 ================= -->
+  <!-- ================= 信任条（只保留题源与隐私两条） ================= -->
   <div class="lp-trust">
     <div class="lp-trust__item">✅ 官方公开题源</div>
-    <div class="lp-trust__item">🔒 免费 · 免登录</div>
-    <div class="lp-trust__item">🖼️ 结果可存海报</div>
-    <div class="lp-trust__item">⚡ 全程不收集作答数据</div>
+    <div class="lp-trust__item">匿名作答 · 不留存你的数据</div>
+  </div>
+
+  <!-- ================= 版本选择（双版本量表） ================= -->
+  <section id="versionSection" class="lp-section hidden">
+    <h2 class="lp-section__title">选择测评深度<span class="lp-section__sub" id="versionSub"></span></h2>
+    <div id="versionBlock" class="lp-versions"></div>
+  </section>
+
+  <!-- ================= 开始测试（版本选择下方） ================= -->
+  <div class="lp-start-cta">
+    <button class="btn-primary lp-start-cta__btn" id="startBtn3" type="button">开始测试</button>
+    <p class="lp-start-cta__hint">免费 · 匿名 · 即开即测</p>
   </div>
 
   <!-- ================= 测什么 ================= -->
   <section class="lp-section">
     <h2 class="lp-section__title">测什么<span class="lp-section__sub" id="whatSub"></span></h2>
+    <p class="lp-what__lead" id="whatIntro"></p>
     <div id="whatBlock" class="lp-what"></div>
   </section>
 
@@ -52,11 +62,24 @@
     <div id="gainBlock" class="lp-gain"></div>
   </section>
 
-  <!-- ================= 怎么测 ================= -->
-  <section class="lp-section lp-section--narrow">
-    <h2 class="lp-section__title">怎么测<span class="lp-section__sub">三分钟上手</span></h2>
-    <div class="lp-steps" id="stepsBlock"></div>
-    <div class="lp-instruction card" id="instructionBlock"></div>
+  <!-- ================= 使用指南（TAB：使用场景 / 如何使用 / 常见问题） ================= -->
+  <section class="lp-section">
+    <h2 class="lp-section__title">使用指南<span class="lp-section__sub">场景 · 步骤 · 常见问题</span></h2>
+    <div class="lp-tabs">
+      <div class="lp-tabs__nav" role="tablist">
+        <button class="lp-tabs__tab active" type="button" role="tab" data-tab="scenario">使用场景</button>
+        <button class="lp-tabs__tab" type="button" role="tab" data-tab="steps">如何使用</button>
+        <button class="lp-tabs__tab" type="button" role="tab" data-tab="faq">常见问题</button>
+      </div>
+      <div class="lp-tabs__body">
+        <div class="lp-tabs__pane active" id="tab-scenario" role="tabpanel"></div>
+        <div class="lp-tabs__pane" id="tab-steps" role="tabpanel">
+          <div class="lp-steps" id="stepsBlock"></div>
+          <div class="lp-instruction card" id="tab-instruction"></div>
+        </div>
+        <div class="lp-tabs__pane" id="tab-faq" role="tabpanel"></div>
+      </div>
+    </div>
   </section>
 
   <!-- ================= 免责声明 ================= -->
@@ -80,7 +103,7 @@
 
 </div>
 
-<script src="js/engine.js"></script>
+<script src="js/engine.js?v=20260831b"></script>
 <script src="data/type16.js"></script>
 <script src="data/bigfive.js"></script>
 <script src="data/attachment.js"></script>
@@ -91,6 +114,12 @@
 <script src="data/gad7.js"></script>
 <script src="data/pss10.js"></script>
 <script src="data/hcl32.js"></script>
-<script src="js/intro.js"></script>
+<script src="data/enneagram.js"></script>
+<script src="data/holland.js"></script>
+<script src="data/p16pf.js"></script>
+<script src="data/animal.js"></script>
+<script src="data/psage.js"></script>
+<script src="data/lovebrain.js"></script>
+<script src="js/intro.js?v=20260831b"></script>
 </body>
 </html>

@@ -20,6 +20,41 @@
     return Object.keys(registry).map(function (k) { return registry[k]; });
   }
 
+  /** 取量表的可用版本列表（无 versions 字段时返回空数组） */
+  function versionList(scale) {
+    if (!scale.versions) { return []; }
+    return Object.keys(scale.versions).map(function (id) {
+      var v = scale.versions[id];
+      return {
+        id: id,
+        label: v.label || id,
+        timeMinutes: v.timeMinutes,
+        count: (v.questions || []).length
+      };
+    });
+  }
+
+  /**
+   * 解析版本：无 versions 时原样返回；有则把基座字段与选中版本合并，
+   * 得到一份"激活态"量表（questions/options/mode 都指向该版本）。
+   * 返回 { scale, versionId, versionLabel }
+   */
+  function resolveVersion(scale, versionId) {
+    if (!scale.versions) {
+      return { scale: scale, versionId: null, versionLabel: '' };
+    }
+    var ids = Object.keys(scale.versions);
+    var id = ids.indexOf(versionId) !== -1 ? versionId : ids[0];
+    var v = scale.versions[id] || {};
+    var merged = {};
+    for (var k in scale) { if (k !== 'versions') { merged[k] = scale[k]; } }
+    for (var k in v) { merged[k] = v[k]; }
+    merged.versionId = id;
+    merged.versionLabel = v.label || id;
+    merged.versionCount = (v.questions || []).length;
+    return { scale: merged, versionId: id, versionLabel: merged.versionLabel };
+  }
+
   /**
    * 取某题在某选项下的原始得分。
    * options 未标 score 时，按位置默认 1..n。
@@ -257,13 +292,54 @@
   }
 
   /**
+   * 票选计分模式（如九型人格）
+   * 每题含两句（q.opts），用户二选一；选中的那一句对应一个类别代号（q.keys[i]）。
+   * 统计每个类别的命中数，按票数排序（并列时按 countMode.order 指定顺序）。
+   */
+  function computeCount(scale, answers) {
+    var questions = scale.questions || [];
+    var cfg = scale.countMode || {};
+    var cats = cfg.categories || [];
+    var order = cfg.order || cats.map(function (c) { return c.code; });
+    var counts = {};
+    cats.forEach(function (c) { counts[c.code] = 0; });
+
+    for (var i = 0; i < questions.length; i++) {
+      if (typeof answers[i] !== 'number') { continue; }
+      var q = questions[i];
+      var keys = q.keys || [];
+      var code = answers[i] === 0 ? keys[0] : keys[1];
+      if (Object.prototype.hasOwnProperty.call(counts, code)) { counts[code]++; }
+    }
+
+    var ranked = cats.slice().sort(function (a, b) {
+      if (counts[b.code] !== counts[a.code]) { return counts[b.code] - counts[a.code]; }
+      return order.indexOf(a.code) - order.indexOf(b.code);
+    });
+    var top = ranked[0] || null;
+    var type = top ? ((scale.types && scale.types[top.code]) || null) : null;
+    return {
+      countMode: true,
+      counts: counts,
+      ranked: ranked,
+      top: top,
+      type: type,
+      level: type ? { level: type.name, description: type.desc } : null,
+      referral: false,
+      rawTotal: 0,
+      total: 0
+    };
+  }
+
+  /**
    * 计分主函数
    * @param {object} scale 量表配置
    * @param {number[]} answers 每题的选项下标（从 0 开始），与 questions 等长
-   * @returns {object} 结构随模式不同：求和 / 极性 / 维度均值 / 四象限
+   * @returns {object} 结构随模式不同：求和 / 极性 / 维度均值 / 四象限 / 票选
    */
   function compute(scale, answers) {
     /* 各模式走独立计分 */
+    if (scale.countMode) { return computeCount(scale, answers); }
     if (scale.poleMode) { return computePoles(scale, answers); }
     if (scale.dimsMode) { return computeDims(scale, answers); }
     if (scale.quadrantMode) { return computeQuadrant(scale, answers); }
@@ -375,6 +451,8 @@
   var engine = {
     getScale: getScale,
     listScales: listScales,
+    versionList: versionList,
+    resolveVersion: resolveVersion,
     compute: compute,
     subscalePercent: subscalePercent,
     store: store
