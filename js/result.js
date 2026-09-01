@@ -57,6 +57,7 @@
     else { renderResult(scale, r); }
 
     renderDisclaimer(scale);
+    handleShareHint(scale);
   }
 
   /* ---------- 恋爱动物渲染（票选 + 萌系画像） ---------- */
@@ -332,6 +333,15 @@
         '如结果提示异常，或你持续感到痛苦，请及时寻求精神科医生或心理咨询师的专业帮助。'
       : '本测试仅供自我探索与娱乐参考，结果基于你的自我评价，不构成任何专业评估或医学诊断。';
     box.textContent = scale.disclaimerExtra ? base + ' ' + scale.disclaimerExtra : base;
+  }
+
+  /* ---------- 筛查类结果：隐藏分享提示 ---------- */
+  function handleShareHint(scale) {
+    var hint = document.querySelector('.result-share-hint');
+    if (!hint) { return; }
+    if (scale.category === 'screen' || scale.disclaimerLevel === 'screen') {
+      hint.classList.add('hidden');
+    }
   }
 
   init();

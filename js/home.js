@@ -56,9 +56,15 @@
   function renderHistory() {
     var hist = E.store.get(HISTORY_KEY, []);
     var section = document.getElementById('historySection');
+    var empty = document.getElementById('historyEmpty');
     var list = document.getElementById('historyList');
-    if (!hist.length) { section.classList.add('hidden'); return; }
+    if (!hist.length) {
+      section.classList.add('hidden');
+      empty.classList.remove('hidden');
+      return;
+    }
     section.classList.remove('hidden');
+    empty.classList.add('hidden');
     list.innerHTML = hist.slice(0, 8).map(function (h) {
       var s = E.getScale(h.scaleId);
       var name = s ? s.title : h.scaleId;

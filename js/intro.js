@@ -74,7 +74,6 @@
               '<span class="lp-dim__code">' + esc(d.key) + '</span>' +
               '<span class="lp-dim__right">' + esc(d.right.code) + ' ' + esc(d.right.label) + '</span>' +
             '</div>' +
-            '<div class="lp-dim__bar"><i></i></div>' +
             '<p class="lp-dim__note">偏向' + esc(d.left.label) + '或' + esc(d.right.label) + '，决定你类型中的这一位字母</p>' +
           '</div>'
         );
@@ -105,7 +104,6 @@
               '<span class="lp-dim__code">' + esc(d.short) + '</span>' +
               '<span class="lp-dim__right">高' + esc(d.name) + '</span>' +
             '</div>' +
-            '<div class="lp-dim__bar"><i></i></div>' +
           '</div>'
         );
       });
