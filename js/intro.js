@@ -303,19 +303,44 @@
   }
 
   /* ---------- TAB 切换 ---------- */
+  function activateTab(btn) {
+    var nav = navEl();
+    if (!nav || !btn) { return; }
+    var key = btn.getAttribute('data-tab');
+    nav.querySelectorAll('.lp-tabs__tab').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('.lp-tabs__pane').forEach(function (p) {
+      p.classList.toggle('active', p.id === 'tab-' + key);
+    });
+  }
+
+  function navEl() { return document.querySelector('.lp-tabs__nav'); }
+
   function bindTabs() {
-    var nav = document.querySelector('.lp-tabs__nav');
+    var nav = navEl();
     if (!nav) { return; }
     nav.addEventListener('click', function (e) {
       var btn = e.target.closest('.lp-tabs__tab');
-      if (!btn) { return; }
-      var key = btn.getAttribute('data-tab');
-      nav.querySelectorAll('.lp-tabs__tab').forEach(function (b) {
-        b.classList.toggle('active', b === btn);
-      });
-      document.querySelectorAll('.lp-tabs__pane').forEach(function (p) {
-        p.classList.toggle('active', p.id === 'tab-' + key);
-      });
+      if (btn) { activateTab(btn); }
+    });
+    /* 键盘导航：←/→ 循环、Home/End 跳首尾（WAI-ARIA tabs 规范） */
+    nav.addEventListener('keydown', function (e) {
+      var btns = Array.prototype.slice.call(nav.querySelectorAll('.lp-tabs__tab'));
+      if (!btns.length) { return; }
+      var idx = btns.indexOf(document.activeElement);
+      if (idx === -1) { return; }
+      var next = idx;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { next = (idx + 1) % btns.length; }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { next = (idx - 1 + btns.length) % btns.length; }
+      else if (e.key === 'Home') { next = 0; }
+      else if (e.key === 'End') { next = btns.length - 1; }
+      else { return; }
+      e.preventDefault();
+      activateTab(btns[next]);
+      btns[next].focus();
     });
   }
 

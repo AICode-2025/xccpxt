@@ -35,7 +35,12 @@
     btn.className = 'theme-switcher';
     btn.setAttribute('aria-label', '切换配色主题');
     btn.title = '换个配色';
-    btn.textContent = '🎨';
+    btn.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M12 22a10 10 0 1 1 10-10 4 4 0 0 1-4 4h-2.2a2.2 2.2 0 0 0-1.6 3.7A2 2 0 0 1 12 22Z"/>' +
+      '<circle cx="7.5" cy="10.5" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/>' +
+      '</svg>';
     btn.addEventListener('click', function () {
       var next = THEMES[(THEMES.indexOf(current()) + 1) % THEMES.length];
       apply(next);

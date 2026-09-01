@@ -24,6 +24,16 @@
     return (s.questions || []).length;
   }
 
+  /** 取量表默认展示时长，必须与 qCount 取同一版本的时长，避免题数/时长错位 */
+  function timeMin(s) {
+    if (s.versions) {
+      var k = Object.keys(s.versions)[0];
+      var t = s.versions[k].timeMinutes;
+      if (typeof t === 'number') { return t; }
+    }
+    return s.timeMinutes;
+  }
+
   function scaleCard(s, i) {
     var tagText = s.category === 'screen' ? '心理筛查' : '自我探索';
     var tagClass = s.category === 'screen' ? 'tag screen' : 'tag';
@@ -35,7 +45,7 @@
       '<div class="scale-desc">' + esc(s.hook || s.desc) + '</div>' +
       '<div class="scale-tags">' +
         '<span class="' + tagClass + '">' + tagText + '</span>' +
-        '<span class="tag">' + qCount(s) + ' 题 · 约 ' + s.timeMinutes + ' 分钟</span>' +
+        '<span class="tag">' + qCount(s) + ' 题 · 约 ' + timeMin(s) + ' 分钟</span>' +
       '</div>' +
     '</a>';
   }

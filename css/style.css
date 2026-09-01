@@ -162,6 +162,11 @@ body {
   border-left: 3px solid var(--primary);
   border-radius: 2px;
 }
+/* 分组标题下的小注（左对齐，轻量提示，不随 .section__sub 居中） */
+.group__note {
+  font-size: 13px; color: var(--ink-soft);
+  margin: -6px 0 18px;
+}
 
 /* 卡片网格（移动端两列） */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
@@ -233,11 +238,14 @@ body {
   position: fixed; right: 16px;
   bottom: calc(18px + env(safe-area-inset-bottom));
   width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0;
   border-radius: 50%;
   border: 1px solid var(--line);
   background: var(--card);
   box-shadow: var(--shadow);
-  font-size: 17px; cursor: pointer; z-index: 50;
+  font-size: 17px; color: var(--ink);
+  cursor: pointer; z-index: 50;
 }
 
 /* 页脚 */
@@ -434,6 +442,15 @@ body {
   font-style: normal; font-size: 11px;
   margin-left: 6px; padding: 1px 7px; border-radius: 999px;
   background: var(--primary-faint); color: var(--primary-dark);
+}
+
+/* 历史记录底部：清空按钮居中、轻量 */
+.history-clear {
+  margin-top: 12px; text-align: center;
+}
+.history-clear .btn-ghost {
+  display: inline-block; width: auto;
+  padding: 6px 22px; font-size: 13px;
 }
 
 

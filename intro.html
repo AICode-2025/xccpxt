@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#4f46e5">
 <title>测评 · 星辰测评</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Cpath d='M16 7l2.7 6.2 6.7.6-5.1 4.4 1.5 6.5L16 21.2l-5.8 3.5 1.5-6.5-5.1-4.4 6.7-.6z' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=20260901c">
-<script src="js/theme.js?v=20260901a"></script>
+<link rel="stylesheet" href="css/style.css?v=20260901e">
+<script src="js/theme.js?v=20260901b"></script>
 </head>
 <body class="intro-page">
 <div class="app">
@@ -69,18 +69,21 @@
   <section class="lp-section">
     <h2 class="lp-section__title">使用指南<span class="lp-section__sub">场景 · 步骤 · 常见问题</span></h2>
     <div class="lp-tabs">
-      <div class="lp-tabs__nav" role="tablist">
-        <button class="lp-tabs__tab active" type="button" role="tab" data-tab="scenario">使用场景</button>
-        <button class="lp-tabs__tab" type="button" role="tab" data-tab="steps">如何使用</button>
-        <button class="lp-tabs__tab" type="button" role="tab" data-tab="faq">常见问题</button>
+      <div class="lp-tabs__nav" role="tablist" aria-label="使用指南">
+        <button class="lp-tabs__tab active" type="button" role="tab" id="tab-btn-scenario"
+          aria-selected="true" aria-controls="tab-scenario" data-tab="scenario">使用场景</button>
+        <button class="lp-tabs__tab" type="button" role="tab" id="tab-btn-steps"
+          aria-selected="false" aria-controls="tab-steps" data-tab="steps">如何使用</button>
+        <button class="lp-tabs__tab" type="button" role="tab" id="tab-btn-faq"
+          aria-selected="false" aria-controls="tab-faq" data-tab="faq">常见问题</button>
       </div>
       <div class="lp-tabs__body">
-        <div class="lp-tabs__pane active" id="tab-scenario" role="tabpanel"></div>
-        <div class="lp-tabs__pane" id="tab-steps" role="tabpanel">
+        <div class="lp-tabs__pane active" id="tab-scenario" role="tabpanel" aria-labelledby="tab-btn-scenario"></div>
+        <div class="lp-tabs__pane" id="tab-steps" role="tabpanel" aria-labelledby="tab-btn-steps">
           <div class="lp-steps" id="stepsBlock"></div>
           <div class="lp-instruction card" id="tab-instruction"></div>
         </div>
-        <div class="lp-tabs__pane" id="tab-faq" role="tabpanel"></div>
+        <div class="lp-tabs__pane" id="tab-faq" role="tabpanel" aria-labelledby="tab-btn-faq"></div>
       </div>
     </div>
   </section>
@@ -123,6 +126,6 @@
 <script src="data/animal.js"></script>
 <script src="data/psage.js"></script>
 <script src="data/lovebrain.js"></script>
-<script src="js/intro.js?v=20260901a"></script>
+<script src="js/intro.js?v=20260901b"></script>
 </body>
 </html>
