@@ -41,16 +41,16 @@ window.XC_SCALES.attachment = {
     /* ---- 依恋焦虑（6 题）---- */
     { id: 1, dim: 'anxiety', text: '我常常担心伴侣随时会离开我。' },
     { id: 2, dim: 'anxiety', text: '伴侣一冷淡，我就会反复想是不是自己哪里不够好。' },
-    { id: 3, dim: 'anxiety', text: '我害怕伴侣哪天突然就不爱我了。' },
+    { id: 3, dim: 'anxiety', text: '我很少担心伴侣会突然不爱我。', reverse: true },
     { id: 4, dim: 'anxiety', text: '我需要伴侣反复确认 ta 是爱我的，才会安心。' },
-    { id: 5, dim: 'anxiety', text: '伴侣迟迟不回消息时，我会坐立难安。' },
+    { id: 5, dim: 'anxiety', text: '伴侣迟迟不回消息时，我通常能安心做自己的事。', reverse: true },
     { id: 6, dim: 'anxiety', text: '即使感情很稳定，我心底仍会隐隐害怕被抛弃。' },
     /* ---- 依恋回避（6 题）---- */
     { id: 7,  dim: 'avoid', text: '恋爱里我更偏向保留一定的距离和个人空间。' },
     { id: 8,  dim: 'avoid', text: '当伴侣过分亲近时，我会有本能想逃开的冲动。' },
-    { id: 9,  dim: 'avoid', text: '我不太习惯向伴侣袒露内心最脆弱的一面。' },
+    { id: 9,  dim: 'avoid', text: '我很愿意向伴侣袒露内心最真实的想法。', reverse: true },
     { id: 10, dim: 'avoid', text: '对方粘得太紧，会让我感到压力。' },
-    { id: 11, dim: 'avoid', text: '我宁愿自己消化情绪，也不想和人靠得太近。' },
+    { id: 11, dim: 'avoid', text: '情绪低落时，我更愿意和伴侣聊聊，而不是一个人扛。', reverse: true },
     { id: 12, dim: 'avoid', text: '亲密到一定程度之后，我反而会莫名想退缩。' }
   ],
 
