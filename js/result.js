@@ -39,7 +39,7 @@
       var lastKey = 'xc_last_' + scale.id + (verId ? '_' + verId : '');
       var last = E.store.get(lastKey, null);
       if (last && last.length === scale.questions.length) { answers = last; }
-      else { window.location.href = 'quiz.html?scale=' + encodeURIComponent(scale.id) + (verId ? '&v=' + encodeURIComponent(verId) : ''); return; }
+      else { window.location.href = 'dati.html?scale=' + encodeURIComponent(scale.id) + (verId ? '&v=' + encodeURIComponent(verId) : ''); return; }
     }
 
     var r = E.compute(scale, answers);
@@ -347,4 +347,36 @@
   }
 
   init();
+
+  // 结果页相关推荐（矩阵交叉跳转）
+  (function renderRec() {
+    var el = $id('recBlock');
+    if (!el) { return; }
+    var base = E.getScale(new URLSearchParams(window.location.search).get('scale'));
+    if (!base) { el.innerHTML = ''; return; }
+    el.innerHTML = E.recommendFor(base.id, 3).map(E.recCard).join('');
+  })();
+
+  // 复制结果分享链接（可分享的当前地址，含 ?scale=&a=）
+  function bindShareCopy() {
+    var btn = $id('copyLinkBtn');
+    if (!btn) { return; }
+    var shareUrl = window.location.href;
+    btn.addEventListener('click', function () {
+      var done = function () { btn.textContent = '已复制！'; setTimeout(function () { btn.textContent = '复制结果链接'; }, 1800); };
+      var fail = function () { btn.textContent = '复制失败，请从地址栏手动复制'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(done, fail);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = shareUrl;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) { fail(); }
+        document.body.removeChild(ta);
+      }
+    });
+  }
+  bindShareCopy();
 })();

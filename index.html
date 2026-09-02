@@ -33,21 +33,6 @@
 
   <main class="main">
 
-    <!-- 历史记录 -->
-    <section id="history" class="section">
-      <h2 class="section__title">我的记录</h2>
-      <div id="historySection" class="history hidden">
-        <div class="history-list" id="historyList"></div>
-        <div class="history-clear">
-          <button id="clearHistory" class="btn-ghost" type="button">清空记录</button>
-        </div>
-      </div>
-      <div id="historyEmpty" class="history-empty hidden">
-        <p>还没有测评记录</p>
-        <a class="history-empty__cta" href="#tests">挑一个 3 分钟的开始</a>
-      </div>
-    </section>
-
     <!-- 自我探索 -->
     <section id="tests" class="section">
       <h2 class="section__title">热门测评</h2>
@@ -61,12 +46,26 @@
     <!-- 心理筛查 -->
     <section id="screen" class="section">
       <div class="group">
-        <h3 class="group__title">心理筛查</h3>
-        <p class="group__note">自评参考工具，结果不构成医学诊断，不提供诊断与治疗功能</p>
+  <h3 class="group__title">心理筛查</h3>
+  <p class="group__note" style="font-weight: 500; color: var(--ink-700);">这是国际通用的自评参考工具，结果仅反映近期感受，不能替代医生的专业诊断，不提供诊断与治疗功能</p>
         <div id="list-screen" class="grid"></div>
       </div>
     </section>
 
+    <!-- 我的记录 -->
+    <section id="history" class="section">
+      <h2 class="section__title">我的记录</h2>
+      <div id="historySection" class="history hidden">
+        <div class="history-list" id="historyList"></div>
+        <div class="history-clear">
+          <button id="clearHistory" class="btn-ghost" type="button">清空记录</button>
+        </div>
+      </div>
+      <div id="historyEmpty" class="history-empty hidden">
+        <p>还没有测评记录</p>
+        <a class="history-empty__cta" href="#tests">挑一个 3 分钟的开始</a>
+      </div>
+    </section>
 
   </main>
 

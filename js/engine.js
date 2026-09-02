@@ -448,6 +448,37 @@
     }
   };
 
+  // 相关推荐：优先量表显式 recommends，否则按同 category 兜底补足
+  function recommendFor(id, n) {
+    var count = n || 3;
+    var cur = getScale(id);
+    var used = {}; used[id] = true;
+    var out = [];
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
+    function push(s) {
+      if (s && !used[s.id] && out.length < count) { out.push(s); used[s.id] = true; }
+    }
+    if (cur && Array.isArray(cur.recommends)) {
+      cur.recommends.forEach(function (rid) { push(getScale(rid)); });
+    }
+    if (cur) {
+      var cats = [cur.category, cur.category !== 'explore' ? 'explore' : 'screen'];
+      Object.keys(registry).forEach(function (k) { var s = registry[k]; if (cats.indexOf(s.category) > -1) { push(s); } });
+    }
+    Object.keys(registry).forEach(function (k) { push(registry[k]); });
+    return out;
+  }
+
+  // 推荐卡片 HTML（纯字符串工具，供 intro/result 复用）
+  function recCard(s) {
+    var c = s.color || '#4f46e5';
+    function esc(x) { return String(x == null ? '' : x).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
+    return '<a class="rec-card" href="intro.html?scale=' + encodeURIComponent(s.id) + '" style="--c:' + c + '">' +
+      '<span class="rec-card__icon">' + (s.icon || '🧩') + '</span>' +
+      '<span class="rec-card__name">' + esc(s.title) + '</span>' +
+    '</a>';
+  }
+
   var engine = {
     getScale: getScale,
     listScales: listScales,
@@ -455,6 +486,8 @@
     resolveVersion: resolveVersion,
     compute: compute,
     subscalePercent: subscalePercent,
+    recommendFor: recommendFor,
+    recCard: recCard,
     store: store
   };
 

@@ -14,9 +14,9 @@
 ```
 site/
 ├── index.html          # 首页：量表列表 + 小工具入口 + 历史记录
-├── intro.html          # 测试专题页（?scale=量表id：Hero/信任条/测什么/测后收获/怎么测/免责/底部CTA/相关推荐）
+├── intro.html          # 测试专题页（?scale=量表id：Hero/信任条/测什么/测完得到什么/怎么测/免责/底部CTA/相关推荐）
 ├── assets/              # 专题页图片素材（十六型 Hero 图）
-├── quiz.html           # 答题页（?scale=量表id）
+├── dati.html           # 答题页（?scale=量表id）
 ├── result.html         # 结果页（?scale=量表id&a=作答串，链接可直接分享）
 ├── css/style.css       # 全站样式（移动端优先）
 ├── js/
@@ -104,7 +104,7 @@ window.XC_SCALES.你的id = {
 };
 ```
 
-然后在需要用到它的三个页面（index/quiz/result）里加一行 `<script src="data/你的id.js">`。完事，引擎不用改。
+然后在需要用到它的三个页面（index/intro/dati/result）里加一行 `<script src="data/你的id.js">`。完事，引擎不用改。
 
 ## 计分规则（引擎已内置）
 

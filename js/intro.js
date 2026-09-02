@@ -381,7 +381,7 @@
   }
 
   function go() {
-    var url = 'quiz.html?scale=' + encodeURIComponent(state.base.id);
+    var url = 'dati.html?scale=' + encodeURIComponent(state.base.id);
     if (state.verId) { url += '&v=' + encodeURIComponent(state.verId); }
     window.location.href = url;
   }
@@ -400,6 +400,10 @@
     render(state.active);
     renderVersionSelector();
     bindTabs();
+
+    // 相关推荐（矩阵交叉跳转）
+    var recEl = $id('recBlock');
+    if (recEl) { recEl.innerHTML = E.recommendFor(state.base.id, 3).map(E.recCard).join(''); }
 
     $id('startBtn').addEventListener('click', go);
     $id('startBtn2').addEventListener('click', go);

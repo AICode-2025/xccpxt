@@ -39,12 +39,21 @@
   <!-- 免责声明（按量表等级切换话术） -->
   <section id="disclaimerBox" class="disclaimer"></section>
 
+  <!-- 相关推荐（矩阵交叉跳转） -->
+  <section id="recSection" class="lp-section">
+    <h2 class="section__title">你可能还想测<span class="section__sub">探索更多自己</span></h2>
+    <div id="recBlock" class="lp-rec"></div>
+  </section>
+
   <div class="btn-col">
     <a id="retakeLink" class="btn-ghost" href="#">再测一次</a>
     <a class="btn-ghost" href="index.html">看看其他测评</a>
   </div>
 
   <p class="result-share-hint">截图保存你的结果，或复制链接分享给朋友</p>
+  <div class="btn-col share-btn-col" style="max-width: 280px; margin: 10px auto 0;">
+    <button id="copyLinkBtn" class="btn-ghost" type="button">复制结果链接</button>
+  </div>
 </div>
 
 <script src="js/engine.js?v=20260901a"></script>

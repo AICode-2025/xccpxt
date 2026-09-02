@@ -130,7 +130,7 @@ body {
   border-bottom: 1px solid var(--line);
   position: sticky; top: 0; z-index: 100;
 }
-.nav__inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 26px; padding: 0 20px; }
+.nav__inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 26px; padding: 0 20px; border-radius: var(--radius); }
 .nav__brand {
   flex: none;
   padding: 13px 0;
@@ -282,7 +282,7 @@ body {
   transition: width .25s ease;
 }
 .progress-text {
-  margin: 8px 2px 0; font-size: 12px; color: var(--ink-soft);
+  margin: 4px 2px 0; font-size: 12px; color: var(--ink-soft);
   display: flex; justify-content: space-between;
   font-variant-numeric: tabular-nums;
 }
@@ -311,7 +311,7 @@ body {
   transition: border-color .15s, background .15s, transform .1s;
 }
 .option-btn:hover { border-color: color-mix(in srgb, var(--primary) 32%, #fff); }
-.option-btn:active { transform: scale(.99); }
+.option-btn:active { transform: translateY(1px) scale(.99); }
 .option-btn.selected {
   border-color: var(--primary);
   background: var(--primary-faint);
@@ -358,6 +358,9 @@ body {
 }
 .btn-ghost:hover { border-color: color-mix(in srgb, var(--primary) 32%, #fff); color: var(--ink); }
 .btn-col { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+@media (min-width: 560px) {
+  .result-page .btn-col:not(.share-btn-col) { flex-direction: row; justify-content: center; flex-wrap: wrap; }
+}
 
 /* ============================================================
    结果页
@@ -416,6 +419,21 @@ body {
   margin-top: 16px; text-align: center;
   font-size: 12px; color: var(--ink-soft);
 }
+
+/* 相关推荐卡片（intro/result 矩阵交叉跳转复用） */
+.rec-card {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  text-decoration: none;
+  transition: border-color .15s, transform .12s;
+}
+.rec-card:hover { border-color: color-mix(in srgb, var(--primary) 32%, #fff); transform: translateY(-1px); }
+.rec-card__icon { font-size: 20px; line-height: 1; }
+.rec-card__name { font-size: 14px; font-weight: 600; color: var(--ink); }
+.rec-card:hover .rec-card__name { color: var(--primary); }
 
 /* 首页：历史记录空状态 */
 .history-empty {
