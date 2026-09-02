@@ -170,6 +170,32 @@ body {
   margin: -6px 0 18px;
 }
 
+/* 自我探索二级分组（方案B：分区折叠 + 全体收起） */
+.group__bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.group__bar .group__title { margin-bottom: 0; }
+.group__fold {
+  font-size: 12px; color: var(--primary); background: none; border: 0;
+  cursor: pointer; padding: 6px 4px; font-weight: 500;
+}
+.group__fold:hover { opacity: .8; }
+#explore-sub .sub-group { margin-bottom: 16px; }
+.sub-group__head {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 10px 2px; margin-bottom: 2px;
+  background: none; border: 0; cursor: pointer; text-align: left;
+  font-family: inherit; color: inherit;
+}
+.sub-group__head .dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+.sub-group__name { font-size: 15px; font-weight: 800; }
+.sub-group__head:hover .sub-group__name { color: var(--primary); }
+.sub-group__cnt {
+  font-size: 11px; color: var(--ink-soft); background: #f1f2f6;
+  border-radius: 999px; padding: 1px 8px;
+}
+.sub-group__arr { margin-left: auto; color: #9ca3af; font-size: 14px; transition: transform .2s; }
+.sub-group.collapsed .sub-group__arr { transform: rotate(-90deg); }
+.sub-group.collapsed .grid { display: none; }
+
 /* 卡片网格（移动端两列） */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
 
