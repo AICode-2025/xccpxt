@@ -23,7 +23,7 @@ window.XC_SCALES.attachment = {
   hook: '你在恋爱里，是哪种姿态？',
   intro: '你在亲密关系里是哪种姿态？本测试从依恋焦虑和依恋回避两个维度，把你归入安全型、焦虑型、回避型或恐惧型。12 题约 3 分钟，结果包含两维坐标位置、类型画像与相处建议，也帮你理解对方可能的模式。',
   source: '基于依恋理论的自研题项 · 原创',
-  title: '恋爱依恋类型测试',
+  title: '恋爱依恋类型测评',
   short: '恋爱依恋',
   category: 'explore',
   disclaimerLevel: 'explore',

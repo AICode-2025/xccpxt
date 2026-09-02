@@ -14,7 +14,7 @@ window.XC_SCALES.holland = {
   title: '霍兰德职业兴趣测评',
   short: '霍兰德职业',
   category: 'explore',
-  disclaimerLevel: 'explore',
+  disclaimerLevel: 'career',
   timeMinutes: 5,
   desc: '测出你的职业兴趣六型组合，速测 20 题 / 深度 60 题。',
   disclaimerExtra: '题目改编自题库《霍兰德职业性向测验量表》。结果仅供自我探索与职业方向参考，请结合实际情况判断。',

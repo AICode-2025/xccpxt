@@ -10,7 +10,7 @@ window.XC_SCALES.sas = {
   hook: '你的焦虑程度，到底有多高？',
   intro: '国际通用的焦虑自评工具，评估你最近一周的焦虑水平。20 题约 3 分钟，按标准分把你的状态归入正常、轻度、中度、重度四档。结果仅供筛查参考，不能替代专业诊断，异常请及时就医。',
   source: 'Zung（1971）· 经典自评量表',
-  title: '焦虑自评量表',
+  title: 'SAS 焦虑自评',
   short: '焦虑自评',
   category: 'screen',
   disclaimerLevel: 'screen',

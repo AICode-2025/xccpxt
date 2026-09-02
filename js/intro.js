@@ -48,7 +48,7 @@
     /* 视觉：十六型用官方图，其余用专属色 emoji 大图标 */
     var visual = $id('heroVisual');
     if (scale.id === 'type16') {
-      visual.innerHTML = '<img class="lp-hero__img" src="assets/mbti-icon.png" alt="' + esc(scale.title) + '">';
+      visual.innerHTML = '<img class="lp-hero__img" src="assets/type16-icon.png" alt="' + esc(scale.title) + '">';
       var hero = $id('lpHero');
       hero.classList.add('lp-hero--photo');
       $id('heroBg').style.backgroundImage = 'url(assets/hero-bg.jpg)';
@@ -278,7 +278,9 @@
     var box = $id('introDisclaimer');
     var base = scale.disclaimerLevel === 'screen'
       ? '本量表为标准化自评筛查工具，结果仅反映你近期的自我感受，不能替代医生的当面诊断。如结果提示异常，或你持续感到痛苦，请及时寻求精神科医生或心理咨询师的专业帮助。'
-      : '本测试仅供自我探索与娱乐参考，结果基于你的自我评价，不构成任何专业评估或医学诊断。';
+      : scale.disclaimerLevel === 'career'
+        ? '本测试结果仅供参考，请结合实际情况与自身兴趣判断，不构成任何职业规划或专业评估建议。'
+        : '本测试仅供自我探索与娱乐参考，结果基于你的自我评价，不构成任何专业评估或医学诊断。';
     var extra = scale.disclaimerExtra ? ' ' + scale.disclaimerExtra : '';
     box.innerHTML = '<b>温馨提示</b><p>' + esc(base + extra) + '</p>';
   }

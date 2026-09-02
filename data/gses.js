@@ -9,7 +9,7 @@ window.XC_SCALES.gses = {
   hook: '你相信自己能搞定难题吗？',
   intro: '测一测你面对困难时，有多大把握搞定它。自我效能感影响你愿不愿意开始、能不能坚持、遇到挫折会不会放弃。10 题约 2 分钟，结果包含效能水平分档与可落地的提升建议。',
   source: 'Schwarzer & Jerusalem（1979）· 作者允许教育与自我探索免费使用',
-  title: '一般自我效能感量表',
+  title: 'GSES 自我效能测评',
   short: '自我效能',
   category: 'explore',
   disclaimerLevel: 'explore',

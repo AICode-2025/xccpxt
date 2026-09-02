@@ -9,7 +9,7 @@ window.XC_SCALES.pss10 = {
   hook: '你最近的压力，有多大？',
   intro: '测一测最近一个月，生活让你感到绷不住的程度。压力感来自你对事件的主观感受，而非事件本身。10 题约 3 分钟，结果包含压力水平分档与减压建议，帮你找到调整的抓手。',
   source: 'PSS-10（Cohen 等 1983）· 经典压力自评',
-  title: '压力知觉量表',
+  title: 'PSS-10 压力感知自评',
   short: '压力自评',
   category: 'screen',
   disclaimerLevel: 'screen',

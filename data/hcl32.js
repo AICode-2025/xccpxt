@@ -11,7 +11,7 @@ window.XC_SCALES.hcl32 = {
   hook: '那些"状态特别好"的日子，是信号吗？',
   intro: '那些精力特别旺盛、状态特别好的日子，可能也是一种信号。HCL-32 是筛查双相倾向的通用自评工具，评估你过往的高能量时期特征。32 题约 5 分钟，结果给出阳/阴性提示；若为阳性，建议进一步做专业评估。',
   source: 'HCL-32（Angst 等）· 论文注明免费供临床与研究使用',
-  title: '心情分析清单（HCL-32）',
+  title: 'HCL-32 心境筛查',
   short: '双相倾向筛查',
   category: 'screen',
   disclaimerLevel: 'screen',

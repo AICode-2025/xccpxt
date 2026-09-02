@@ -6,7 +6,7 @@
 旋转虚线圆环 + 真实主图标 + 参数条 + 白色胶囊 CTA，下方依次为信任条 / 测什么 / 测完得到什么 / 怎么测 /
 免责声明 / 底部 CTA / 相关推荐。移动优先自适应（手机单列、≥860px 双列、≥1100px 五列）。
 
-> ⚠️ `assets/mbti-icon.png` 与 `assets/hero-bg.jpg` 取自参考站 traits.zqbapp.cn（仅测试研究用途），
+> ⚠️ `assets/type16-icon.png` 与 `assets/hero-bg.jpg` 取自参考站 traits.zqbapp.cn（仅测试研究用途），
 > 正式上线前请替换为自有素材，避免版权风险。
 
 ## 目录结构
