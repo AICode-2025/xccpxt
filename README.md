@@ -46,7 +46,8 @@ site/
     ├── hcl32.js        # 双相倾向筛查（32题是/否，≥14提示评估）
     ├── bai.js          # BAI 焦虑症状自评（21题，0-3计分，中重度转介）
     ├── stai.js         # 状态-特质焦虑（20题，状态/特质 二维均值 + 组合提示）
-    └── sad.js          # 社交回避与苦恼（20题，反向10道，sum 判级四档）
+    ├── sad.js          # 社交回避与苦恼（20题，反向10道，sum 判级四档）
+    └── sres.js         # 自反思倾向（18题，自我审视/信息批判/复盘精进 三维均值 + 组合提示）
 ```
 
 ## 四种计分模式
@@ -57,7 +58,7 @@ site/
 |---|---|---|---|
 | 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD | 总分 + 区间判级 + 分维度条 |
 | 极性模式 | `poleMode` | 十六型人格 | 类型代码 + 四维双极条 |
-| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI | 多维均值（1-5）+ 档位解读 + 组合提示 |
+| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES | 多维均值（1-5）+ 档位解读 + 组合提示 |
 | 四象限 | `quadrantMode` | 恋爱依恋 | 两维均值 + 阈值 → 四型 |
 
 ## Big Five 大五人格（IPIP-NEO-60）说明
@@ -136,4 +137,4 @@ window.XC_SCALES.你的id = {
 
 ## 已验证
 
-`node --check` 全部通过；引擎冒烟测试 21/21（含 SAS/SDS/PHQ-9/GAD-7/CES-D 筛查类转介，PSS-10/UCLA 双向极值，FES/EMBU/EPQ/Olson/爱情三角/社交焦虑 多维均值与组合提示，人际信任双端）；BAI/STAI/SAD 新增冒烟 22/22（BAI 转介、SAD 反向自适应极值、STAI 双维均与组合提示）。
+`node --check` 全部通过；引擎冒烟测试 21/21（含 SAS/SDS/PHQ-9/GAD-7/CES-D 筛查类转介，PSS-10/UCLA 双向极值，FES/EMBU/EPQ/Olson/爱情三角/社交焦虑 多维均值与组合提示，人际信任双端）；BAI/STAI/SAD 新增冒烟 22/22（BAI 转介、SAD 反向自适应极值、STAI 双维均与组合提示）；SRES 冒烟 10/10（三维极值、反向感知、组合触发）。
