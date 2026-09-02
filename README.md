@@ -51,7 +51,10 @@ site/
     ├── rses.js         # RSES 自尊（10题，反向5道，sum 判级三档）
     ├── lotr.js         # LOT-R 乐观（6题，3反向悲观题，sum 判级三档）
     ├── swls.js         # SWLS 生活满意度（5题，1-7计分，sum 判级四档）
-    └── panas.js        # PANAS 正负情绪（20题，正性/负性 二维均值 + 组合提示）
+    ├── panas.js        # PANAS 正负情绪（20题，正性/负性 二维均值 + 组合提示）
+    ├── isi.js          # ISI 失眠程度（7题，0-4计分，中度以上转介）
+    ├── ghq12.js        # GHQ-12 一般心理困扰（12题，6反向，sum 三档 + 转介）
+    └── erq.js          # ERQ 情绪调节（10题，认知重评/表达抑制 二维均值 + 组合提示）
 ```
 
 ## 四种计分模式
@@ -60,9 +63,9 @@ site/
 
 | 模式 | 触发字段 | 适用 | 结果形态 |
 |---|---|---|---|
-| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS | 总分 + 区间判级 + 分维度条 |
+| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 | 总分 + 区间判级 + 分维度条 |
 | 极性模式 | `poleMode` | 十六型人格 | 类型代码 + 四维双极条 |
-| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS | 多维均值（1-5）+ 档位解读 + 组合提示 |
+| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ | 多维均值（1-5）+ 档位解读 + 组合提示 |
 | 四象限 | `quadrantMode` | 恋爱依恋 | 两维均值 + 阈值 → 四型 |
 
 ## Big Five 大五人格（IPIP-NEO-60）说明
@@ -141,4 +144,4 @@ window.XC_SCALES.你的id = {
 
 ## 已验证
 
-`node --check` 全部通过；引擎冒烟测试 21/21（含 SAS/SDS/PHQ-9/GAD-7/CES-D 筛查类转介，PSS-10/UCLA 双向极值，FES/EMBU/EPQ/Olson/爱情三角/社交焦虑 多维均值与组合提示，人际信任双端）；BAI/STAI/SAD 新增冒烟 22/22；SRES 冒烟 10/10；幸福·自尊簇（RSES/LOT-R/SWLS/PANAS）冒烟 23/23（反向自适应极值、四档边界、PANAS 两维交织下标与三型组合提示）。
+`node --check` 全部通过；引擎冒烟测试 21/21（含 SAS/SDS/PHQ-9/GAD-7/CES-D 筛查类转介，PSS-10/UCLA 双向极值，FES/EMBU/EPQ/Olson/爱情三角/社交焦虑 多维均值与组合提示，人际信任双端）；BAI/STAI/SAD 冒烟 22/22；SRES 冒烟 10/10；幸福·自尊簇 冒烟 23/23；健康筛查簇+调节簇（ISI/GHQ-12/ERQ）冒烟 21/21（ISI 转介边界、GHQ 反向自适应、ERQ 两维极值与三型组合）。
