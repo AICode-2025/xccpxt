@@ -63,7 +63,11 @@ site/
     ├── sleephyg.js     # 睡眠卫生自评（6题，频率计分，sum 判级三档）
     ├── codep.js        # 关系依赖（15题，价值依赖/过度付出/边界模糊 三维均值 + 组合提示）
     ├── narc.js         # 自我关注倾向（15题，独特优越/渴求关注/主导倾向 三维均值 + 组合提示）
-    └── rum.js          # 反刍思维（15题，sum 判级三档 + 三轴条 + 高分转介）
+    ├── rum.js          # 反刍思维（15题，sum 判级三档 + 三轴条 + 高分转介）
+    ├── procras.js      # 拖延倾向（10题，3反向，sum 判级三档）
+    ├── locus.js        # 内外控制向（12题，内控/外控 二维均值 + 组合提示）
+    ├── eq.js           # 情绪智力（16题，觉察/调节/共情/经营 四维均值 + 组合提示）
+    └── grit.js         # 坚毅 Grit（12题，毅力/兴趣 二维均值 + 组合提示）
 ```
 
 ## 四种计分模式
@@ -72,9 +76,9 @@ site/
 
 | 模式 | 触发字段 | 适用 | 结果形态 |
 |---|---|---|---|
-| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 / BRS / AIS / 睡眠卫生 / RUM | 总分 + 区间判级 + 分维度条 |
+| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 / BRS / AIS / 睡眠卫生 / RUM / 拖延倾向 | 总分 + 区间判级 + 分维度条 |
 | 极性模式 | `poleMode` | 十六型人格 | 类型代码 + 四维双极条 |
-| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ / CD-RISC / DERS / TAS / CODEP / NARC | 多维均值（1-5）+ 档位解读 + 组合提示 |
+| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ / CD-RISC / DERS / TAS / CODEP / NARC / LOCUS / EQ / GRIT | 多维均值（1-5）+ 档位解读 + 组合提示 |
 | 四象限 | `quadrantMode` | 恋爱依恋 | 两维均值 + 阈值 → 四型 |
 
 ## Big Five 大五人格（IPIP-NEO-60）说明
