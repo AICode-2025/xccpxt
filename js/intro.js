@@ -349,7 +349,7 @@
   }
 
   /* ---------- 版本选择（双版本量表） ---------- */
-  var state = { base: null, active: null, verId: null };
+  var state = { base: null, active: null, verId: null, chosen: false };
 
   function renderVersionSelector() {
     var vs = E.versionList(state.base);
@@ -378,11 +378,22 @@
     var r = E.resolveVersion(state.base, verId);
     state.active = r.scale;
     state.verId = r.versionId;
+    state.chosen = true;
     render(state.active);
     renderVersionSelector();
   }
 
-  function go() {
+  function startTest() {
+    // 双版本量表须先显式选深度，否则引导滚动到版本区并高亮提醒
+    if (!state.chosen && E.versionList(state.base).length) {
+      var sec = $id('versionSection');
+      sec.classList.remove('hidden');
+      sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      sec.classList.remove('lp-flash');
+      void sec.offsetWidth; // 重置动画便于重复触发
+      sec.classList.add('lp-flash');
+      return;
+    }
     var url = 'dati.html?scale=' + encodeURIComponent(state.base.id);
     if (state.verId) { url += '&v=' + encodeURIComponent(state.verId); }
     window.location.href = url;
@@ -407,9 +418,8 @@
     var recEl = $id('recBlock');
     if (recEl) { recEl.innerHTML = E.recommendFor(state.base.id, 3).map(E.recCard).join(''); }
 
-    $id('startBtn').addEventListener('click', go);
-    $id('startBtn2').addEventListener('click', go);
-    $id('startBtn3').addEventListener('click', go);
+    $id('startBtn').addEventListener('click', startTest);
+    $id('startBtn2').addEventListener('click', startTest);
   }
 
   function render(scale) {
@@ -424,7 +434,6 @@
 
     $id('ctaTitle').textContent = '认识' + scale.title + '，现在就开始';
     $id('startBtn2').textContent = '开始测试 · ' + scale.questions.length + ' 题';
-    $id('startBtn3').textContent = '开始测试 · ' + scale.questions.length + ' 题';
   }
 
   init();

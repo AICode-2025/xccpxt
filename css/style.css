@@ -641,9 +641,17 @@ body.intro-page .app { max-width: 1200px; }
 }
 .lp-what__lead:empty { display: none; }
 
-/* 版本选择下方的开始测试按钮 */.lp-start-cta { text-align: center; padding: 10px 20px 0; }
-.lp-start-cta__btn { display: inline-block; width: auto; padding: 12px 40px; font-size: 15px; }
-.lp-start-cta__hint { margin-top: 10px; font-size: 12px; color: var(--ink-soft); }
+/* 专题页顶部导航（返回首页） */
+.lp-nav { display: flex; align-items: center; padding: 12px 20px; }
+.lp-nav__brand { display: inline-flex; align-items: center; font-size: 16px; font-weight: 700; color: var(--ink); text-decoration: none; }
+.lp-nav__brand:hover { color: var(--primary); }
+
+/* 版本需显式选择时的提醒高亮 */
+.lp-flash { animation: lpPulse 0.5s ease 3; border-radius: var(--radius); }
+@keyframes lpPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(79, 70, 229, 0.22); }
+}
 
 /* 四象限 */
 .lp-quad { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
