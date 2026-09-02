@@ -7,6 +7,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.socanx = {
   id: 'socanx',
+  recommends: ['ulca','trust','bigfive'],
   icon: '😶',
   color: '#22c55e',
   hook: '社交时，你的压力和回避有几分？',

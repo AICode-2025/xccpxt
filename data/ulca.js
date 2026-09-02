@@ -5,6 +5,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.ulca = {
   id: 'ulca',
+  recommends: ['socanx','fes','trust'],
   icon: '🕊️',
   color: '#5aa7a7',
   hook: '你的孤独感，到底有多高？',

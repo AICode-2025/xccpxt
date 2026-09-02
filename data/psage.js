@@ -12,6 +12,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.psage = {
   id: 'psage',
+  recommends: ['animal','tri','bigfive'],
   icon: '🎂',
   color: '#f59e0b',
   hook: '测测你的心理年龄是几岁',

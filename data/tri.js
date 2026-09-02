@@ -7,6 +7,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.tri = {
   id: 'tri',
+  recommends: ['attachment','olson','trust'],
   icon: '💘',
   color: '#f43f5e',
   hook: '你的爱情，更像哪一条边构成的三角形？',

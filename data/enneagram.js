@@ -7,6 +7,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.enneagram = {
   id: 'enneagram',
+  recommends: ['type16','bigfive','epq'],
   icon: '🔺',
   color: '#db2777',
   hook: '九种人格，你是哪一种？',

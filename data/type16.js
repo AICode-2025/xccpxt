@@ -26,6 +26,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.type16 = {
   id: 'type16',
+  recommends: ['bigfive','enneagram','epq'],
   icon: '🧭',
   color: '#4f46e5',
   hook: '你是哪种人格？速测 20 题 / 深度 96 题，测出你的十六型',

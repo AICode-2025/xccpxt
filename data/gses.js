@@ -4,6 +4,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.gses = {
   id: 'gses',
+  recommends: ['psss','bigfive','ulca'],
   icon: '💪',
   color: '#f97316',
   hook: '你相信自己能搞定难题吗？',

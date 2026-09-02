@@ -7,6 +7,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.embu = {
   id: 'embu',
+  recommends: ['fes','ulca','bigfive'],
   icon: '🧸',
   color: '#ec4899',
   hook: '父母当年的教养方式，如何塑造了你？',

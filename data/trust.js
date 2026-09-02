@@ -6,6 +6,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.trust = {
   id: 'trust',
+  recommends: ['ulca','socanx','tri'],
   icon: '🤝',
   color: '#06b6d4',
   hook: '你对陌生人，愿意先相信还是先防备？',

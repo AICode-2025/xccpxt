@@ -18,6 +18,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.attachment = {
   id: 'attachment',
+  recommends: ['tri','olson','trust'],
   icon: '💞',
   color: '#ec4899',
   hook: '你在恋爱里，是哪种姿态？',

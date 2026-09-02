@@ -14,6 +14,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.p16pf = {
   id: 'p16pf',
+  recommends: ['bigfive','type16','epq'],
   icon: '🧩',
   color: '#6366f1',
   hook: '卡特尔 16 维人格剖面，认识更立体的你',

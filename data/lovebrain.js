@@ -5,6 +5,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.lovebrain = {
   id: 'lovebrain',
+  recommends: ['tri','attachment','psage'],
   icon: '💘',
   color: '#ec4899',
   hook: '一谈恋爱就上头？测测你的恋爱脑等级',

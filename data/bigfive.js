@@ -24,6 +24,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.bigfive = {
   id: 'bigfive',
+  recommends: ['type16','enneagram','epq'],
   icon: '🌊',
   color: '#0ea5e9',
   hook: '心理学界最权威的五维人格测评',

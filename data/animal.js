@@ -12,6 +12,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.animal = {
   id: 'animal',
+  recommends: ['attachment','tri','psage'],
   icon: '🦊',
   color: '#f43f5e',
   hook: '在恋爱里，你更像哪种动物？',

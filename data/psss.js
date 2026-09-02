@@ -5,6 +5,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.psss = {
   id: 'psss',
+  recommends: ['gses','fes','ulca'],
   icon: '🤝',
   color: '#22c55e',
   hook: '谁在真正托住你？',

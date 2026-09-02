@@ -7,6 +7,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.olson = {
   id: 'olson',
+  recommends: ['tri','attachment','trust'],
   icon: '💞',
   color: '#fb7185',
   hook: '你们的关系，处在什么温度？',

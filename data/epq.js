@@ -5,6 +5,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.epq = {
   id: 'epq',
+  recommends: ['bigfive','type16','enneagram'],
   icon: '🧭',
   color: '#f97316',
   hook: '你的性格，站在艾森克的哪三个坐标上？',

@@ -7,6 +7,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.fes = {
   id: 'fes',
+  recommends: ['embu','ulca','bigfive'],
   icon: '🏠',
   color: '#8b5cf6',
   hook: '你的家庭，是哪一种相处模式？',

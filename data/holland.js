@@ -6,6 +6,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.holland = {
   id: 'holland',
+  recommends: ['bigfive','p16pf','type16'],
   icon: '💼',
   color: '#f59e0b',
   hook: '测测你更适合哪种工作？',
