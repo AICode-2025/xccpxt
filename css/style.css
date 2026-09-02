@@ -641,10 +641,23 @@ body.intro-page .app { max-width: 1200px; }
 }
 .lp-what__lead:empty { display: none; }
 
-/* 专题页顶部导航（返回首页） */
-.lp-nav { display: flex; align-items: center; padding: 12px 20px; }
-.lp-nav__brand { display: inline-flex; align-items: center; font-size: 16px; font-weight: 700; color: var(--ink); text-decoration: none; }
-.lp-nav__brand:hover { color: var(--primary); }
+/* 专题页 Hero 内顶部：返回玻璃胶囊 + 品牌（方案A，融入深色渐变） */
+.lp-top {
+  position: absolute; top: 18px; left: 20px; right: 20px; z-index: 3;
+  display: flex; align-items: center; justify-content: space-between;
+  pointer-events: none;
+}
+.lp-top__back, .lp-top__brand { pointer-events: auto; }
+.lp-top__back {
+  display: inline-flex; align-items: center;
+  font-size: 13px; color: #fff;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.22);
+  padding: 6px 13px; border-radius: 999px;
+  text-decoration: none; -webkit-tap-highlight-color: transparent;
+}
+.lp-top__back:active { background: rgba(255,255,255,.22); }
+.lp-top__brand { font-size: 12px; color: rgba(255,255,255,.6); letter-spacing: 2px; }
 
 /* 版本需显式选择时的提醒高亮 */
 .lp-flash { animation: lpPulse 0.5s ease 3; border-radius: var(--radius); }
@@ -779,6 +792,7 @@ body.intro-page .app { max-width: 1200px; }
 }
 @media (min-width: 860px) {
   .lp-hero { padding: 84px 30px 92px; }
+  .lp-top { top: 26px; left: max(30px, calc((100% - 1080px)/2)); right: max(30px, calc((100% - 1080px)/2)); }
   .lp-hero__inner { grid-template-columns: 1.15fr 1fr; }
   .lp-hero__title { font-size: 52px; }
   .lp-hero__hook { font-size: 18px; }
