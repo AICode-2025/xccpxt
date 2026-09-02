@@ -102,12 +102,13 @@
     });
   }
 
-  /* ---------- 票选模式渲染（九型人格） ---------- */
+  /* ---------- 票选模式渲染（九型/爱的语言/四气质） ---------- */
   function renderCountResult(scale, r) {
-    var t = r.type || { code: '', name: '', tagline: '', desc: '', strengths: [], watchouts: [], fits: [] };
+    var t = r.type || { code: '', name: '', emoji: '', tagline: '', desc: '', strengths: [], watchouts: [], fits: [], suggestions: [] };
+    var codeLabel = /^\d+$/.test(r.top.code) ? r.top.code + '号 ' : '';
 
-    $id('resultLevel').textContent = '你的九型人格：' + r.top.code + '号 · ' + t.name;
-    $id('resultScore').textContent = t.tagline || ('第 ' + r.top.code + ' 型：' + t.name);
+    $id('resultLevel').textContent = '你的主导类型：' + (t.emoji || '') + ' ' + codeLabel + t.name;
+    $id('resultScore').textContent = t.tagline || t.name;
     $id('resultDescription').textContent = t.desc;
 
     // 票数排行
@@ -119,25 +120,29 @@
       var pct = Math.round(n / maxN * 100);
       sl.insertAdjacentHTML('beforeend',
         '<div class="subscale-row">' +
-          '<div class="subscale-name-line"><span>' + (c.emoji || '') + ' ' + c.code + '号 ' + c.name +
+          '<div class="subscale-name-line"><span>' + (c.emoji || '') + ' ' + c.name +
             (idx === 0 ? ' <b style="color:var(--c,' + (scale.color || '#4f46e5') + ')">主导类型</b>' : '') +
             '</span><span>' + n + ' 票</span></div>' +
           '<div class="subscale-track"><div class="subscale-fill" style="width:' + pct + '%"></div></div>' +
         '</div>');
     });
 
-    sl.insertAdjacentHTML('beforeend',
-      '<div class="type-block"><h4>你的优势</h4><ul>' +
-        t.strengths.map(function (s) { return '<li>' + s + '</li>'; }).join('') +
-      '</ul></div>' +
-      '<div class="type-block"><h4>小提醒</h4><ul>' +
-        t.watchouts.map(function (s) { return '<li>' + s + '</li>'; }).join('') +
-      '</ul></div>');
+    var hasStrengths = !!(t.strengths && t.strengths.length);
+    if (hasStrengths) {
+      sl.insertAdjacentHTML('beforeend',
+        '<div class="type-block"><h4>你的优势</h4><ul>' +
+          t.strengths.map(function (s) { return '<li>' + s + '</li>'; }).join('') +
+        '</ul></div>' +
+        '<div class="type-block"><h4>小提醒</h4><ul>' +
+          t.watchouts.map(function (s) { return '<li>' + s + '</li>'; }).join('') +
+        '</ul></div>');
+    }
 
-    $id('suggestionTitle').textContent = '可能适合的方向';
+    $id('suggestionTitle').textContent = hasStrengths ? '可能适合的方向' : '给你的相处建议';
     var sug = $id('suggestionList');
     sug.innerHTML = '';
-    t.fits.forEach(function (s) {
+    var list = hasStrengths ? t.fits : t.suggestions;
+    (list || []).forEach(function (s) {
       var li = document.createElement('li');
       li.textContent = s;
       sug.appendChild(li);

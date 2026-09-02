@@ -88,6 +88,17 @@ site/
     ├── temp4.js        # 古典四气质（12题，胆汁/多血/粘液/抑郁 票选主气质）
     ├── forgive.js      # 宽恕倾向（8题，宽人/宽己 二维均值 + 组合提示）
     └── binge.js        # 情绪性进食（10题，情绪/失控 二维均值 + 组合提示）
+    ├── hsp.js          # 高敏感人群（12题，深度加工/易唤醒/情绪反应 三维均值 + 组合提示）
+    ├── meaning.js      # 生命意义感（10题，持义/寻求 二维均值 + 组合提示）
+    ├── staxi.js        # 状态-特质愤怒（16题，当下火气/惯常火气 二维均值 + 组合提示）
+    ├── bdi.js          # BDI 贝克抑郁自评（21题，0-3计分，中度以上转介 + 第21题单测）
+    ├── decis.js        # 决策风格（16题，理性/直觉/依赖/逃避 四维均值 + 组合提示）
+    ├── time.js         # 时间管理（12题，计划/专注/效能 三维均值 + 组合提示）
+    ├── typea.js        # A 型行为（12题，紧迫/好胜/急躁 三维均值 + 组合提示）
+    ├── creat.js        # 创造倾向（12题，好奇/想象/坚持 三维均值 + 组合提示）
+    ├── copy.js         # 应对方式（12题，问题/情绪/回避 三维均值 + 组合提示）
+    ├── asrs.js         # 注意力与多动自评（6题，0-4计分，明显信号转介，screen）
+    └── parel.js        # 亲子关系质量（12题，亲近/沟通/冲突 三维均值 + 组合提示）
 ```
 
 ## 四种计分模式
@@ -96,9 +107,9 @@ site/
 
 | 模式 | 触发字段 | 适用 | 结果形态 |
 |---|---|---|---|
-| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 / BRS / AIS / 睡眠卫生 / RUM / 拖延倾向 / CSEC / 感恩倾向 / 冲动消费 / 自我苛责 | 总分 + 区间判级 + 分维度条 |
+| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 / BRS / AIS / 睡眠卫生 / RUM / 拖延倾向 / CSEC / 感恩倾向 / 冲动消费 / 自我苛责 / BDI / 注意力多动 | 总分 + 区间判级 + 分维度条 |
 | 极性模式 | `poleMode` | 十六型人格 | 类型代码 + 四维双极条 |
-| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ / CD-RISC / DERS / TAS / CODEP / NARC / LOCUS / EQ / GRIT / PERF / 手机依赖 / 自我决定 / 社交尴尬 / 希望感 / 好奇心 / 心流 / 自我关怀 / 正念 / 职业价值观 / 工作倦怠 / 宽恕 / 情绪性进食 | 多维均值（1-5）+ 档位解读 + 组合提示 |
+| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ / CD-RISC / DERS / TAS / CODEP / NARC / LOCUS / EQ / GRIT / PERF / 手机依赖 / 自我决定 / 社交尴尬 / 希望感 / 好奇心 / 心流 / 自我关怀 / 正念 / 职业价值观 / 工作倦怠 / 宽恕 / 情绪性进食 / 状态-特质愤怒 / 高敏感 / 生命意义感 / 决策风格 / 时间管理 / A型行为 / 创造倾向 / 应对方式 / 亲子关系 | 多维均值（1-5）+ 档位解读 + 组合提示 |
 | 四象限 | `quadrantMode` | 恋爱依恋 / DISC 行为风格 | 两维均值 + 阈值 → 四型 |
 | 票选 | `countMode` | Enneagram / 动物人格 / 爱的五种语言 / 古典四气质 | 二选一命中票数 → 排序 → 主类型 |
 
@@ -178,6 +189,6 @@ window.XC_SCALES.你的id = {
 
 ## 已验证
 
-`node --check` 全部通过；引擎冒烟测试 21/21（含 SAS/SDS/PHQ-9/GAD-7/CES-D 筛查类转介，PSS-10/UCLA 双向极值，FES/EMBU/EPQ/Olson/爱情三角/社交焦虑 多维均值与组合提示，人际信任双端）；BAI/STAI/SAD 冒烟 22/22；SRES 冒烟 10/10；幸福·自尊簇 冒烟 23/23；健康筛查簇+调节簇 冒烟 21/21；韧性/情绪困难/睡眠簇 冒烟 30/30；依赖/自恋/反刍簇冒烟 21/21；成长/职场/关系代表簇（HOPE/CURIO/FLOW/SELFCOMP/MINDFUL/DISC/WORKVAL/BURNO/LOVE5/TEMP4/FORGIVE/BINGE）通过结构审计与计分冒烟。
+`node --check` 全部通过；引擎冒烟测试 21/21（含 SAS/SDS/PHQ-9/GAD-7/CES-D 筛查类转介，PSS-10/UCLA 双向极值，FES/EMBU/EPQ/Olson/爱情三角/社交焦虑 多维均值与组合提示，人际信任双端）；BAI/STAI/SAD 冒烟 22/22；SRES 冒烟 10/10；幸福·自尊簇 冒烟 23/23；健康筛查簇+调节簇 冒烟 21/21；韧性/情绪困难/睡眠簇 冒烟 30/30；依赖/自恋/反刍簇冒烟 21/21；成长/职场/关系代表簇通过结构审计与计分冒烟；续铺批（BDI/STAXI/HSP/MEANING/DECIS/TIME/TYPEA/CREAT/COPY/ASRS/PAREL）冒烟 57/57.
 
-> 完全互推：全站 **70 张量表 100% 配置 `recommends`，0 悬空引用**；筛查块内部自导并接入全站互推图，热门前端 bigfive 11 条入链。
+> 完全互推：全站 **81 张量表 100% 配置 `recommends`，0 悬空引用**；筛查块内部自导并接入全站互推图，热门前端 bigfive 11 条入链。
