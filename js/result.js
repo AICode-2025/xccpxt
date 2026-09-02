@@ -268,7 +268,7 @@
   function renderDimsResult(scale, r) {
     var top = r.top || { name: '', mean: 0, level: '' };
 
-    $id('resultLevel').textContent = '你的五维剖面';
+    $id('resultLevel').textContent = r.dims.length ? ('你的 ' + r.dims.length + ' 维剖面') : '你的多维剖面';
     $id('resultScore').textContent = '最突出的维度：' + top.name + '（' + top.mean + ' 分，' + top.level + '）';
     $id('resultDescription').textContent = '';
 
@@ -337,12 +337,14 @@
     box.textContent = scale.disclaimerExtra ? base + ' ' + scale.disclaimerExtra : base;
   }
 
-  /* ---------- 筛查类结果：隐藏分享提示 ---------- */
+  /* ---------- 筛查类结果：隐藏分享提示与复制入口 ---------- */
   function handleShareHint(scale) {
     var hint = document.querySelector('.result-share-hint');
     if (!hint) { return; }
     if (scale.category === 'screen' || scale.disclaimerLevel === 'screen') {
       hint.classList.add('hidden');
+      var col = document.querySelector('.share-btn-col');
+      if (col) { col.classList.add('hidden'); }
     }
   }
 

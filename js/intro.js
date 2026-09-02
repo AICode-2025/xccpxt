@@ -81,7 +81,7 @@
       html.push('<p class="lp-what__note">' + esc(scale.poleMode.thresholdNote || '') + '</p>');
     }
     else if (scale.dimsMode) {
-      sub.textContent = '五大维度，认识完整的你';
+      sub.textContent = scale.dimsMode.subscales.length + ' 个维度，认识完整的你';
       scale.dimsMode.subscales.forEach(function (s) {
         html.push(
           '<div class="lp-dim lp-dim--bar" style="--c:' + esc(scale.color || '#4f46e5') + '">' +
@@ -117,17 +117,16 @@
       );
     }
     else {
-      /* 求和模式：有维度展示维度，否则纯文字 */
+      /* 求和模式：有分维度（scoring.subscales）展示维度，否则纯文字 */
+      var sSubs = (scale.scoring && scale.scoring.subscales) || [];
       sub.textContent = scale.desc ? '' : '';
-      if (scale.subscales && scale.subscales.length) {
-        scale.subscales.forEach(function (s) {
-          html.push(
-            '<div class="lp-dim lp-dim--bar" style="--c:' + esc(scale.color || '#4f46e5') + '">' +
-              '<div class="lp-dim__head"><span class="lp-dim__left">' + esc(s.name) + '</span></div>' +
-            '</div>'
-          );
-        });
-      }
+      sSubs.forEach(function (s) {
+        html.push(
+          '<div class="lp-dim lp-dim--bar" style="--c:' + esc(scale.color || '#4f46e5') + '">' +
+            '<div class="lp-dim__head"><span class="lp-dim__left">' + esc(s.name) + '</span></div>' +
+          '</div>'
+        );
+      });
     }
 
     box.innerHTML = html.join('');
@@ -145,7 +144,10 @@
       cards.push(['📊', '四维剖面', '外向/内向、实感/直觉……每维倾向清晰可见']);
       cards.push(['🧠', '类型解读', '画像、优势、小提醒、适合方向一页讲透']);
     } else if (scale.dimsMode) {
-      cards.push(['📊', '五维剖面', '外倾/宜人/尽责/敏感/开放，五条剖面线']);
+      var subs = scale.dimsMode.subscales || [];
+      var dimCount = subs.length;
+      var dimHint = subs.slice(0, 6).map(function (s) { return s.short || s.name; }).join('/');
+      cards.push(['📊', dimCount + ' 维剖面', dimCount > 6 ? dimCount + ' 个维度，逐维档位解读' : dimHint + '，每维一档解读']);
       cards.push(['🏷️', '档位解读', '每个维度高中低档位，对应一段人话解读']);
       cards.push(['⭐', '最突出维度', '一眼看到你性格里最鲜明的部分']);
       cards.push(['💡', '组合提示', '维度组合揭示行为模式，如"执行力型"']);
