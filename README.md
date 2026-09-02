@@ -60,7 +60,10 @@ site/
     ├── ders.js         # DERS 情绪调节困难（16题，非接受/目标受阻/冲动/策略 四维均值）
     ├── tas20.js        # TAS 述情倾向（15题，识别/表达/内向观 三维均值 + 组合提示）
     ├── ais.js          # AIS 失眠倾向（8题，0-3计分，达到失眠提示转介）
-    └── sleephyg.js     # 睡眠卫生自评（6题，频率计分，sum 判级三档）
+    ├── sleephyg.js     # 睡眠卫生自评（6题，频率计分，sum 判级三档）
+    ├── codep.js        # 关系依赖（15题，价值依赖/过度付出/边界模糊 三维均值 + 组合提示）
+    ├── narc.js         # 自我关注倾向（15题，独特优越/渴求关注/主导倾向 三维均值 + 组合提示）
+    └── rum.js          # 反刍思维（15题，sum 判级三档 + 三轴条 + 高分转介）
 ```
 
 ## 四种计分模式
@@ -69,9 +72,9 @@ site/
 
 | 模式 | 触发字段 | 适用 | 结果形态 |
 |---|---|---|---|
-| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 / BRS / AIS / 睡眠卫生 | 总分 + 区间判级 + 分维度条 |
+| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 / BRS / AIS / 睡眠卫生 / RUM | 总分 + 区间判级 + 分维度条 |
 | 极性模式 | `poleMode` | 十六型人格 | 类型代码 + 四维双极条 |
-| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ / CD-RISC / DERS / TAS | 多维均值（1-5）+ 档位解读 + 组合提示 |
+| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ / CD-RISC / DERS / TAS / CODEP / NARC | 多维均值（1-5）+ 档位解读 + 组合提示 |
 | 四象限 | `quadrantMode` | 恋爱依恋 | 两维均值 + 阈值 → 四型 |
 
 ## Big Five 大五人格（IPIP-NEO-60）说明
@@ -150,6 +153,6 @@ window.XC_SCALES.你的id = {
 
 ## 已验证
 
-`node --check` 全部通过；引擎冒烟测试 21/21（含 SAS/SDS/PHQ-9/GAD-7/CES-D 筛查类转介，PSS-10/UCLA 双向极值，FES/EMBU/EPQ/Olson/爱情三角/社交焦虑 多维均值与组合提示，人际信任双端）；BAI/STAI/SAD 冒烟 22/22；SRES 冒烟 10/10；幸福·自尊簇 冒烟 23/23；健康筛查簇+调节簇 冒烟 21/21；韧性/情绪困难/睡眠簇（CD-RISC/BRS/DERS/TAS/AIS/睡眠卫生）冒烟 30/30（三维均值极值、反向自适应、AIS 转介边界、TAS 组合触发、互推完整性）。
+`node --check` 全部通过；引擎冒烟测试 21/21（含 SAS/SDS/PHQ-9/GAD-7/CES-D 筛查类转介，PSS-10/UCLA 双向极值，FES/EMBU/EPQ/Olson/爱情三角/社交焦虑 多维均值与组合提示，人际信任双端）；BAI/STAI/SAD 冒烟 22/22；SRES 冒烟 10/10；幸福·自尊簇 冒烟 23/23；健康筛查簇+调节簇 冒烟 21/21；韧性/情绪困难/睡眠簇 冒烟 30/30；依赖/自恋/反刍簇（CODEP/NARC/RUM）冒烟 21/21（三维均值极值、四档组合触发、RUM 反向降分与 55 分转介边界、三轴条）。
 
-> 完全互推：全站 **43 张量表 100% 配置 `recommends`，0 悬空引用**；筛查块（8 张）内部自导并接入全站互推图，热门前端 bigfive 11 条入链。
+> 完全互推：全站 **46 张量表 100% 配置 `recommends`，0 悬空引用**；筛查块（9 张）内部自导并接入全站互推图，热门前端 bigfive 11 条入链。
