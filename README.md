@@ -71,7 +71,11 @@ site/
     ├── perf.js         # 完美主义（12题，追求/怕错/行动 三维均值 + 组合提示）
     ├── csec.js         # 核心自我评价（10题，5反向，sum 判级三档）
     ├── grat.js         # 感恩倾向（6题，2反向，sum 判级三档）
-    └── phdep.js        # 手机依赖（12题，失控/慰藉/替代 三维均值 + 组合提示）
+    ├── phdep.js        # 手机依赖（12题，失控/慰藉/替代 三维均值 + 组合提示）
+    ├── impulse.js      # 冲动消费（9题，3反向，sum 判级三档）
+    ├── sdt.js          # 自我决定需求（12题，自主/胜任/归属 三维均值 + 组合提示）
+    ├── embarrass.js    # 社交尴尬倾向（12题，易感/反刍 二维均值 + 组合提示）
+    └── selfcrit.js     # 自我苛责（10题，3反向，sum 判级三档）
 ```
 
 ## 四种计分模式
@@ -80,9 +84,9 @@ site/
 
 | 模式 | 触发字段 | 适用 | 结果形态 |
 |---|---|---|---|
-| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 / BRS / AIS / 睡眠卫生 / RUM / 拖延倾向 / CSEC / 感恩倾向 | 总分 + 区间判级 + 分维度条 |
+| 求和模式 | 默认 | SAS / SDS / PHQ-9 / GAD-7 / CES-D / PSS-10 / GSES / PSSS / HCL-32 / UCLA / 人际信任 / BAI / SAD / RSES / LOT-R / SWLS / ISI / GHQ-12 / BRS / AIS / 睡眠卫生 / RUM / 拖延倾向 / CSEC / 感恩倾向 / 冲动消费 / 自我苛责 | 总分 + 区间判级 + 分维度条 |
 | 极性模式 | `poleMode` | 十六型人格 | 类型代码 + 四维双极条 |
-| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ / CD-RISC / DERS / TAS / CODEP / NARC / LOCUS / EQ / GRIT / PERF / 手机依赖 | 多维均值（1-5）+ 档位解读 + 组合提示 |
+| 维度均值 | `dimsMode` | 大五人格 / FES / EMBU / EPQ / 婚姻质量 / 爱情三角 / 社交焦虑 / STAI / SRES / PANAS / ERQ / CD-RISC / DERS / TAS / CODEP / NARC / LOCUS / EQ / GRIT / PERF / 手机依赖 / 自我决定 / 社交尴尬 | 多维均值（1-5）+ 档位解读 + 组合提示 |
 | 四象限 | `quadrantMode` | 恋爱依恋 | 两维均值 + 阈值 → 四型 |
 
 ## Big Five 大五人格（IPIP-NEO-60）说明
