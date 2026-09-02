@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
-
 /* ============================================================
    星辰测评 · 全站样式 v2（专业克制风）
+   说明：拉丁/数字/中文一律走系统字体栈（下方 body 字体栈已含
+   PingFang SC / HarmonyOS Sans SC / 微软雅黑），不再引入外部
+   Google Fonts，避免国内引直连被拦、消除首屏渲染阻塞，契合
+   零依赖免登录定位。如后续想换特调英文标题字，再本地化引入。
    设计原则：留白 / 克制的单主色 / 统一间距（4-8px 基准）/
    细腻阴影 / 一致的圆角体系
    主色：#4f46e5（indigo），大面积浅色留白
@@ -68,7 +70,7 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg);
   color: var(--ink);
-  font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
     "HarmonyOS Sans SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
