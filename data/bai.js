@@ -7,6 +7,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.bai = {
   id: 'bai',
+  recommends: ['gad7','sas','stai'],
   icon: '🫨',
   color: '#ef4444',
   hook: '你最近的焦虑，藏在身体的哪些信号里？',

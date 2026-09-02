@@ -4,6 +4,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.pss10 = {
   id: 'pss10',
+  recommends: ['ghq12','isi','gses'],
   icon: '⚡',
   color: '#14b8a6',
   hook: '你最近的压力，有多大？',

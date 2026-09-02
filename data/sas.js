@@ -5,6 +5,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.sas = {
   id: 'sas',
+  recommends: ['gad7','bai','stai'],
   icon: '😰',
   color: '#eab308',
   hook: '你的焦虑程度，到底有多高？',

@@ -5,6 +5,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.gad7 = {
   id: 'gad7',
+  recommends: ['sas','phq9','pss10'],
   icon: '😟',
   color: '#6366f1',
   hook: '你有多容易被焦虑困住？',

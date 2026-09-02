@@ -5,6 +5,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.phq9 = {
   id: 'phq9',
+  recommends: ['sds','cesd','gad7'],
   icon: '🌧️',
   color: '#3b82f6',
   hook: '最近两周，你的情绪还好吗？',

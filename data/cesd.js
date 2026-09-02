@@ -7,6 +7,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.cesd = {
   id: 'cesd',
+  recommends: ['sds','phq9','ghq12'],
   icon: '🫧',
   color: '#8b5cf6',
   hook: '最近一周，你的抑郁症状多吗？',

@@ -6,6 +6,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.hcl32 = {
   id: 'hcl32',
+  recommends: ['sds','stai','panas'],
   icon: '🎢',
   color: '#ef4444',
   hook: '那些"状态特别好"的日子，是信号吗？',

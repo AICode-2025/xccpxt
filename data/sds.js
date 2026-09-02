@@ -5,6 +5,7 @@
 window.XC_SCALES = window.XC_SCALES || {};
 window.XC_SCALES.sds = {
   id: 'sds',
+  recommends: ['phq9','cesd','erq'],
   icon: '🌧️',
   color: '#6366f1',
   hook: '最近的情绪，是不是真的有些低落？',
