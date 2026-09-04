@@ -3,79 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="星辰测评 - 免费心理自评工具，无需登录注册，测完即出结果">
-<meta name="theme-color" content="#4f46e5">
-<title>星辰测评 · 免费心理自评</title>
+<meta name="theme-color" content="#5b6abf">
+<title>结果 · 星辰测评</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Cpath d='M16 7l2.7 6.2 6.7.6-5.1 4.4 1.5 6.5L16 21.2l-5.8 3.5 1.5-6.5-5.1-4.4 6.7-.6z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css?v=20260901h">
 <script src="js/theme.js?v=20260901b"></script>
 </head>
-<body>
+<body class="result-page">
 <div class="app">
 
-  <!-- Hero（参考 traits.zqbapp.cn） -->
-  <section class="hero">
-    <h1 class="hero__brand">星辰测评<span>趣味心理自评 · 自我探索工具</span></h1>
-    <p class="hero__sub">基于经典心理学量表，为你提供轻松有趣的心理自评与自我探索</p>
-    <p class="hero__sub hero__sub--two">从性格到职业，从情感到成长，助你更了解自己</p>
-    <a class="hero__cta" href="#tests">开始测评</a>
+  <header class="result-head">
+    <a class="back-btn" href="index.html" aria-label="返回首页"><span class="arr" aria-hidden="true">‹</span>返回首页</a>
+    <h1 id="scaleTitle">结果</h1>
+  </header>
+
+  <!-- 详细解读 -->
+  <section class="card detail-card">
+    <h3 id="resultLevel"></h3>
+    <p id="resultScore"></p>
+    <div id="subscaleList"></div>
+    <p id="resultDescription"></p>
+    <div id="suggestionBlock">
+      <h4 id="suggestionTitle">建议</h4>
+      <ul id="suggestionList"></ul>
+    </div>
   </section>
 
-  <!-- 锚点导航 -->
-  <nav class="nav">
-    <div class="nav__inner">
-      <a class="nav__brand" href="index.html">星辰测评</a>
-      <a class="nav__link active" href="#tests">全部测评</a>
-      <a class="nav__link" href="#screen">心理筛查</a>
-      <a class="nav__link" href="#history">我的记录</a>
-    </div>
-  </nav>
+  <!-- 筛查类：转介提示（触发时才显示） -->
+  <section id="referralBox" class="referral hidden">
+    <h4>请注意</h4>
+    <p id="referralText"></p>
+    <p class="referral-hotline">全国统一心理援助热线：<strong>12356</strong>（24 小时）</p>
+  </section>
 
-  <main class="main">
+  <!-- 免责声明（按量表等级切换话术） -->
+  <section id="disclaimerBox" class="disclaimer"></section>
 
-    <!-- 自我探索 -->
-    <section id="tests" class="section">
-      <h2 class="section__title">测评广场</h2>
-      <p class="section__sub">选一个方向，从 5 分钟开始了解自己</p>
-      <div class="group">
-        <div class="group__bar">
-          <h3 class="group__title">自我探索</h3>
-          <button id="foldAll" class="group__fold" type="button">全体收起</button>
-        </div>
-        <div id="explore-sub"></div>
-      </div>
-    </section>
+  <!-- 相关推荐（矩阵交叉跳转） -->
+  <section id="recSection" class="lp-section">
+    <h2 class="section__title">你可能还想测<span class="section__sub">探索更多自己</span></h2>
+    <div id="recBlock" class="lp-rec"></div>
+  </section>
 
-    <!-- 心理筛查 -->
-    <section id="screen" class="section">
-      <div class="group">
-  <h3 class="group__title">心理筛查</h3>
-  <p class="group__note" style="font-weight: 500; color: var(--ink-700);">这是国际通用的自评参考工具，结果仅反映近期感受，不能替代医生的专业诊断，不提供诊断与治疗功能</p>
-        <div id="list-screen" class="grid"></div>
-      </div>
-    </section>
+  <div class="btn-col">
+    <a id="retakeLink" class="btn-ghost" href="#">再测一次</a>
+    <a class="btn-ghost" href="index.html">看看其他测评</a>
+  </div>
 
-    <!-- 我的记录 -->
-    <section id="history" class="section">
-      <h2 class="section__title">我的记录</h2>
-      <div id="historySection" class="history hidden">
-        <div class="history-list" id="historyList"></div>
-        <div class="history-clear">
-          <button id="clearHistory" class="btn-ghost" type="button">清空记录</button>
-        </div>
-      </div>
-      <div id="historyEmpty" class="history-empty hidden">
-        <p>还没有测评记录</p>
-        <a class="history-empty__cta" href="#tests">挑一个 3 分钟的开始</a>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <p>本站所有测试免费且匿名，答题数据仅保存在你的设备本地，不会上传。</p>
-    <p>测评结果仅供自我探索与参考，不构成任何医学诊断。</p>
-  </footer>
+  <p class="result-share-hint">截图保存你的结果，或复制链接分享给朋友</p>
+  <div class="btn-col share-btn-col" style="max-width: 280px; margin: 10px auto 0;">
+    <button id="copyLinkBtn" class="btn-ghost" type="button">复制结果链接</button>
+  </div>
 </div>
 
 <script src="js/engine.js?v=20260901a"></script>
@@ -160,7 +138,7 @@
 <script src="data/copy.js"></script>
 <script src="data/asrs.js"></script>
 <script src="data/parel.js"></script>
-<script src="js/home.js?v=20260901c"></script>
+<script src="js/result.js?v=20260901c"></script>
 </body>
 </html>
 

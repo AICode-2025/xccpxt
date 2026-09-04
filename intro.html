@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<title>测评 · 星辰测评</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Cpath d='M16 7l2.7 6.2 6.7.6-5.1 4.4 1.5 6.5L16 21.2l-5.8 3.5 1.5-6.5-5.1-4.4 6.7-.6z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css?v=20260901h">
+<script src="js/theme.js?v=20260901b"></script>
+</head>
+<body class="intro-page">
+<div class="app">
+
+  <!-- ================= Hero 区 ================= -->
+  <header class="lp-hero" id="lpHero">
+    <div class="lp-hero__bg" id="heroBg"></div>
+
+    <!-- 顶部：返回胶囊 + 品牌（融入 Hero，方案A） -->
+    <nav class="lp-top" aria-label="顶部导航">
+      <a class="lp-top__back" href="index.html" aria-label="返回首页">‹ 返回</a>
+      <span class="lp-top__brand">星辰测评</span>
+    </nav>
+
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <div class="lp-hero__tags" id="heroTags"></div>
+        <h1 class="lp-hero__title" id="heroTitle"></h1>
+        <p class="lp-hero__hook" id="heroHook"></p>
+        <div class="lp-hero__stats" id="heroStats"></div>
+        <button class="lp-hero__cta" id="startBtn" type="button">开始测试</button>
+      </div>
+      <div class="lp-hero__visual" id="heroVisual"></div>
+    </div>
+  </header>
+
+  <!-- ================= 信任条（只保留题源与隐私两条） ================= -->
+  <div class="lp-trust">
+    <div class="lp-trust__item">
+      <svg class="lp-trust__icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 4.6 6.4 11.4 2.8 7.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      官方公开题源
+    </div>
+    <div class="lp-trust__item">
+      <svg class="lp-trust__icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 4.6 6.4 11.4 2.8 7.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      匿名作答，不留存你的数据
+    </div>
+  </div>
+
+  <!-- ================= 版本选择（双版本量表） ================= -->
+  <section id="versionSection" class="lp-section hidden">
+    <h2 class="lp-section__title">选择测评深度<span class="lp-section__sub" id="versionSub"></span></h2>
+    <div id="versionBlock" class="lp-versions"></div>
+  </section>
+
+  <!-- ================= 测什么 ================= -->
+  <section class="lp-section">
+    <h2 class="lp-section__title">测什么<span class="lp-section__sub" id="whatSub"></span></h2>
+    <p class="lp-what__lead" id="whatIntro"></p>
+    <div id="whatBlock" class="lp-what"></div>
+  </section>
+
+  <!-- ================= 测完得到什么 ================= -->
+  <section class="lp-section">
+    <h2 class="lp-section__title">测完你会得到<span class="lp-section__sub">一份能看懂、能分享的结果</span></h2>
+    <div id="gainBlock" class="lp-gain"></div>
+  </section>
+
+  <!-- ================= 使用指南（TAB：使用场景 / 如何使用 / 常见问题） ================= -->
+  <section class="lp-section">
+    <h2 class="lp-section__title">使用指南<span class="lp-section__sub">场景 · 步骤 · 常见问题</span></h2>
+    <div class="lp-tabs">
+      <div class="lp-tabs__nav" role="tablist" aria-label="使用指南">
+        <button class="lp-tabs__tab active" type="button" role="tab" id="tab-btn-scenario"
+          aria-selected="true" aria-controls="tab-scenario" data-tab="scenario">使用场景</button>
+        <button class="lp-tabs__tab" type="button" role="tab" id="tab-btn-steps"
+          aria-selected="false" aria-controls="tab-steps" data-tab="steps">如何使用</button>
+        <button class="lp-tabs__tab" type="button" role="tab" id="tab-btn-faq"
+          aria-selected="false" aria-controls="tab-faq" data-tab="faq">常见问题</button>
+      </div>
+      <div class="lp-tabs__body">
+        <div class="lp-tabs__pane active" id="tab-scenario" role="tabpanel" aria-labelledby="tab-btn-scenario"></div>
+        <div class="lp-tabs__pane" id="tab-steps" role="tabpanel" aria-labelledby="tab-btn-steps">
+          <div class="lp-steps" id="stepsBlock"></div>
+          <div class="lp-instruction card" id="tab-instruction"></div>
+        </div>
+        <div class="lp-tabs__pane" id="tab-faq" role="tabpanel" aria-labelledby="tab-btn-faq"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 免责声明 ================= -->
+  <section id="introDisclaimer" class="lp-disclaimer"></section>
+
+  <!-- ================= 底部 CTA ================= -->
+  <section class="lp-bottom-cta" id="bottomCta">
+    <p class="lp-bottom-cta__title" id="ctaTitle"></p>
+    <button class="btn-primary lp-bottom-cta__btn" id="startBtn2" type="button">开始测试</button>
+  </section>
+
+  <!-- ================= 相关推荐 ================= -->
+  <section class="lp-section">
+    <h2 class="lp-section__title">你可能还想测<span class="lp-section__sub">探索更多自己</span></h2>
+    <div id="recBlock" class="lp-rec"></div>
+  </section>
+
+  <footer class="footer">
+    <p>星辰测评 · 免费匿名测评 · 仅供自我探索与参考</p>
+  </footer>
+
+</div>
+
+<script src="js/engine.js?v=20260901a"></script>
+<script src="data/type16.js"></script>
+<script src="data/bigfive.js"></script>
+<script src="data/attachment.js?v=20260901a"></script>
+<script src="data/gses.js"></script>
+<script src="data/psss.js"></script>
+<script src="data/sas.js"></script>
+<script src="data/phq9.js"></script>
+<script src="data/gad7.js"></script>
+<script src="data/pss10.js"></script>
+<script src="data/enneagram.js"></script>
+<script src="data/holland.js"></script>
+<script src="data/p16pf.js"></script>
+<script src="data/animal.js"></script>
+<script src="data/psage.js"></script>
+<script src="data/lovebrain.js"></script>
+<script src="data/ais.js"></script>
+<script src="data/asrs.js"></script>
+<script src="data/bai.js"></script>
+<script src="data/bdi.js"></script>
+<script src="data/binge.js"></script>
+<script src="data/brs.js"></script>
+<script src="data/burno.js"></script>
+<script src="data/cdrisc.js"></script>
+<script src="data/cesd.js"></script>
+<script src="data/codep.js"></script>
+<script src="data/copy.js"></script>
+<script src="data/creat.js"></script>
+<script src="data/csec.js"></script>
+<script src="data/curio.js"></script>
+<script src="data/decis.js"></script>
+<script src="data/ders.js"></script>
+<script src="data/disc.js"></script>
+<script src="data/embarrass.js"></script>
+<script src="data/embu.js"></script>
+<script src="data/epq.js"></script>
+<script src="data/eq.js"></script>
+<script src="data/erq.js"></script>
+<script src="data/fes.js"></script>
+<script src="data/flow.js"></script>
+<script src="data/forgive.js"></script>
+<script src="data/ghq12.js"></script>
+<script src="data/grat.js"></script>
+<script src="data/grit.js"></script>
+<script src="data/hcl32.js"></script>
+<script src="data/hope.js"></script>
+<script src="data/hsp.js"></script>
+<script src="data/impulse.js"></script>
+<script src="data/isi.js"></script>
+<script src="data/locus.js"></script>
+<script src="data/lotr.js"></script>
+<script src="data/love5.js"></script>
+<script src="data/meaning.js"></script>
+<script src="data/mindful.js"></script>
+<script src="data/narc.js"></script>
+<script src="data/olson.js"></script>
+<script src="data/panas.js"></script>
+<script src="data/parel.js"></script>
+<script src="data/perf.js"></script>
+<script src="data/phdep.js"></script>
+<script src="data/procras.js"></script>
+<script src="data/rses.js"></script>
+<script src="data/rum.js"></script>
+<script src="data/sad.js"></script>
+<script src="data/sds.js"></script>
+<script src="data/sdt.js"></script>
+<script src="data/selfcomp.js"></script>
+<script src="data/selfcrit.js"></script>
+<script src="data/sleephyg.js"></script>
+<script src="data/socanx.js"></script>
+<script src="data/sres.js"></script>
+<script src="data/stai.js"></script>
+<script src="data/staxi.js"></script>
+<script src="data/swls.js"></script>
+<script src="data/tas20.js"></script>
+<script src="data/temp4.js"></script>
+<script src="data/time.js"></script>
+<script src="data/tri.js"></script>
+<script src="data/trust.js"></script>
+<script src="data/typea.js"></script>
+<script src="data/ulca.js"></script>
+<script src="data/workval.js"></script>
+<script src="js/intro.js?v=20260901c"></script>
+</body>
+</html>
+
+
